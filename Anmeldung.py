@@ -1,48 +1,46 @@
 import json
 import bcrypt
+import mysql.connector
 from flask import Flask, request, session
 
 app = Flask(__name__)
 app.secret_key = "0815"
 
-def check_passwort():
-    # Lade die Benutzerdaten aus der JSON-Datei
-    benutzerdaten = benutzerdaten_laden()
-    
-    if not benutzerdaten:
-        print("Keine Benutzerdaten gefunden.")
-        return
-    
-    # Benutzereingabe
-    check_benutzername = input("Benutzername: ")
-    check_passwort = input("Passwort: ")
-    
-    # Durchsuche die Benutzerdaten nach dem eingegebenen Benutzernamen
-    benutzer_gefunden = False
-    for benutzer in benutzerdaten:
-        if benutzer["benutzername"] == check_benutzername:
-            benutzer_gefunden = True
-            # Überprüfe das Passwort
-            if bcrypt.checkpw(check_passwort.encode("utf-8"), benutzer["hashed_passwort"].encode("utf-8")):
-                print("Anmeldung erfolgreich!")
-            else:
-                print("Falsches Passwort.")
-            break
-    
-    if not benutzer_gefunden:
-        print("Benutzername nicht gefunden.")
+def db_connection():
+    connection = mysql.connector.connect(
+        host="host.docker.internal",
+        user="root",
+        password="1234",
+        database="testDB"
+    )
+    return connection
 
-def benutzerdaten_laden():
+@app.route('/auth/login', methods=['POST'])
+def login():
+    connection = db_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM benutzer WHERE benutzername = %s", (request.form["benutzername"],))
+    # Starte die Passwortüberprüfung
+    check_passwort(cursor,request)
+
+def check_passwort(cursor,request):
+    user = get_user(cursor,request)
+    if user is not None and len(user) > 0:
+        # Überprüfe das Passwort
+        if bcrypt.checkpw(request.form["passwort"].encode("utf-8"), user[0][2].encode("utf-8")):
+            return "Anmeldung erfolgreich", 200
+        else:
+            # Passwort falsch
+            return "Anmeldung fehlgeschlagen", 401
+    else:
+        # Benutzer nicht gefunden
+        return "Anmeldung fehlgeschlagen", 401
+
+def get_user(cursor,request):
     try:
-        with open("benutzerdaten.json", "r") as datei:
-            benutzerdaten = json.load(datei)
-        return benutzerdaten
-    except FileNotFoundError:
-        print("Die Datei 'benutzerdaten.json' wurde nicht gefunden.")
-        return None
-    except json.JSONDecodeError:
-        print("Die Datei 'benutzerdaten.json' enthält ungültigen JSON.")
+        cursor.execute("SELECT * FROM benutzer WHERE benutzername = %s", (request.form["benutzername"],))
+        benutzer = cursor.fetchall()
+        return benutzer
+    except Exception as e:
         return None
 
-# Starte die Passwortüberprüfung
-check_passwort()
