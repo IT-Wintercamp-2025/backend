@@ -1,33 +1,44 @@
 import bcrypt
 import json
-import os
 from datetime import datetime
+from flask import Flask, request, session
+import os
 
+app = Flask(__name__)
+app.secret_key = "0815"
 
 def hash_passwort(passwort):
     return bcrypt.hashpw(passwort.encode("utf-8"), bcrypt.gensalt()).decode("utf-8") 
 
 def set_role(user_id):
     if user_id == 0:
-        return "admin"
+        session["rolle"] = 2
+        return 2 # Admin
     else:
-        return "user"
+        session["rolle"] = 0
+        return 0 # Guest
     
 def benutzername_eingabe():
-    benutzername = str(input("Benutzername: "))
+    benutzername = str(input("Benutzername:"))
     benutzerdaten = benutzerdaten_laden()
-     # Durchsuche die Benutzerdaten nach dem eingegebenen Benutzernamen
-    benutzer_gefunden = False
+    # Durchsuche die Benutzerdaten nach dem eingegebenen Benutzernamen
     for benutzer in benutzerdaten:
         if benutzer["benutzername"] == benutzername:
-            benutzer_gefunden = True
             print("Benutzername bereits vergeben.")
             return benutzername_eingabe()
-        else:
-            return benutzername
+    return benutzername
+        
+def check_passwort_streanght(passwort):
+    if len(passwort) < 4:
+        print("Passwort muss mindestens 4 Zeichen lang sein.")
+        return False
+    else:
+        return True        
 
 def passwort_eingabe():
-    passwort = str(input("Passwort: "))
+    passwort = str(input("Passwort:"))
+    while not check_passwort_streanght(passwort):
+        passwort = str(input("Passwort:"))
     passwort_bestätigung = str(input("Bitte Passwort bestätigen:"))
     try:
         if passwort_bestätigung == passwort:
@@ -42,13 +53,16 @@ def benutzerdaten_laden():
     try:
         with open("benutzerdaten.json", "r") as datei:
             benutzerdaten = json.load(datei)
-        return benutzerdaten
+            # Sicherstellen, dass benutzerdaten eine Liste ist
+            if not isinstance(benutzerdaten, list):
+                benutzerdaten = []
     except FileNotFoundError:
-        print("Die Datei 'benutzerdaten.json' wurde nicht gefunden.")
-        return None
+        print("Die Datei 'benutzerdaten.json' wurde nicht gefunden. Eine neue Datei wird erstellt.")
+        benutzerdaten = []
     except json.JSONDecodeError:
-        print("Die Datei 'benutzerdaten.json' enthält ungültigen JSON.")
-        return None
+        print("Die Datei 'benutzerdaten.json' enthält ungültigen JSON. Eine neue Datei wird erstellt.")
+        benutzerdaten = []
+    return benutzerdaten
 
 def benutzerdaten_speichern(benutzername, hashed_passwort):
     # Überprüfen, ob die Datei existiert und nicht leer ist
@@ -56,6 +70,9 @@ def benutzerdaten_speichern(benutzername, hashed_passwort):
         with open("benutzerdaten.json", "r") as datei:
             try:
                 benutzerdaten = json.load(datei)
+                # Sicherstellen, dass benutzerdaten eine Liste ist
+                if not isinstance(benutzerdaten, list):
+                    benutzerdaten = []
             except json.JSONDecodeError:
                 # Falls die Datei ungültigen JSON enthält, initialisiere eine leere Liste
                 benutzerdaten = []
@@ -74,7 +91,6 @@ def benutzerdaten_speichern(benutzername, hashed_passwort):
     # Alle Benutzerdaten speichern
     with open("benutzerdaten.json", "w") as datei:
         json.dump(benutzerdaten, datei, indent=4)
-
 
 benutzername = benutzername_eingabe()
 hashed_passwort = passwort_eingabe()
