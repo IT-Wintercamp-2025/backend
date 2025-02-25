@@ -9,7 +9,7 @@ Also nicht darauf vertrauen das irgendwas hier erklärtes funktionieren würde :
 - **Programmiersprache:** Python
 - **Framework:** Flask
 - **Datenbank:** mySQL
-- **Authentifizierung:** JWT (JSON Web Token)
+- **(Authentifizierung:** JWT (JSON Web Token))
 - **Passwort-Hashing:** bcrypt
 
 ## Installation
