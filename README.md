@@ -1,7 +1,9 @@
 # Ticketsystem Backend
 
 ## Überblick
-Dieses Repository enthält das Backend eines Ticketsystems, das zur Verwaltung und Bearbeitung von Tickets dient. Die API bietet Endpunkte für das Erstellen, Aktualisieren und Verwalten von Tickets sowie Benutzerrollen und Berechtigungen. Das README wurde GANZ SICHER NICHT von ChatGPT geschrieben...
+Dieses Repository enthält das Backend eines Ticketsystems, das zur Verwaltung und Bearbeitung von Tickets dient. Die API bietet Endpunkte für das Erstellen, Aktualisieren und Verwalten von Tickets sowie Benutzerrollen und Berechtigungen. 
+Das README wurde GANZ SICHER NICHT von ChatGPT geschrieben...
+Also nicht darauf vertrauen das irgendwas hier erklärtes funktionieren würde :)
 
 ## Technologien
 - **Programmiersprache:** Python
