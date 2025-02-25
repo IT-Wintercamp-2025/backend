@@ -2,10 +2,46 @@ import bcrypt
 import json
 from datetime import datetime
 from flask import Flask, request, session
+import mysql.connector
 import os
 
 app = Flask(__name__)
 app.secret_key = "0815"
+
+def db_connection():
+    connection = mysql.connector.connect(
+        host="host.docker.internal",
+        user="root",
+        password="1234",
+        database="testDB"
+    )
+    return connection
+
+@app.route('/auth/register', methods=['POST'])
+def register():
+    connection = None
+    cursor = None
+    try:
+        connection = db_connection()
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM benutzer WHERE benutzername = %s", (request.form["benutzername"],))
+        # Starte die Passwortüberprüfung
+        benutzername = benutzername_eingabe(cursor,request)
+        hashed_passwort = passwort_eingabe(cursor,request)
+
+        if hashed_passwort:
+            benutzerdaten_speichern(benutzername, hashed_passwort,cursor,connection)
+            print("")
+            print("Benutzerdaten wurden gespeichert.")
+            print("Benutzername:", benutzername)
+            print("Passwort:", hashed_passwort)
+    except Exception as e:
+        return "Verbindung fehlgeschlagen", 500
+    finally:
+        if cursor:
+            cursor.close()
+        if connection:
+            connection.close()
 
 def hash_passwort(passwort):
     return bcrypt.hashpw(passwort.encode("utf-8"), bcrypt.gensalt()).decode("utf-8") 
@@ -18,14 +54,32 @@ def set_role(user_id):
         session["rolle"] = 0
         return 0 # Guest
     
-def benutzername_eingabe():
-    benutzername = str(input("Benutzername:"))
-    benutzerdaten = benutzerdaten_laden()
+def validate_username(benutzername):
+    if len(benutzername) < 3: # Der Benutzername muss mindestens 3 Zeichen lang sein
+        return False, "Der Benutzername muss mindestens 3 Zeichen lang sein."
+    elif len(benutzername) > 20: # Der Benutzername darf maximal 20 Zeichen lang sein
+        return False, "Der Benutzername darf maximal 20 Zeichen lang sein."
+    elif not benutzername.isalnum(): # Der Benutzername darf nur Buchstaben und Zahlen enthalten
+        return False, "Der Benutzername darf nur Buchstaben und Zahlen enthalten."
+    elif not benutzername[0].isalpha(): # Der Benutzername muss mit einem Buchstaben beginnen
+        return False, "Der Benutzername muss mit einem Buchstaben beginnen."
+    else:
+        return True,None
+    
+    
+def benutzername_eingabe(cursor,request):
+    benutzername = request.form["benutzername"]
+    is_name_valid, errormessage = validate_username(benutzername)
+    while not is_name_valid:
+        print(errormessage)
+        benutzername = request.form["benutzername"]
+        is_name_valid, errormessage = validate_username(benutzername)
+    benutzerdaten = benutzerdaten_laden(cursor,request)
     # Durchsuche die Benutzerdaten nach dem eingegebenen Benutzernamen
     for benutzer in benutzerdaten:
         if benutzer["benutzername"] == benutzername:
             print("Benutzername bereits vergeben.")
-            return benutzername_eingabe()
+            return benutzername_eingabe(cursor,request)
     return benutzername
         
 def check_passwort_streanght(passwort):
@@ -35,11 +89,11 @@ def check_passwort_streanght(passwort):
     else:
         return True        
 
-def passwort_eingabe():
-    passwort = str(input("Passwort:"))
+def passwort_eingabe(cursor,request):
+    passwort = request.form["passwort"]
     while not check_passwort_streanght(passwort):
-        passwort = str(input("Passwort:"))
-    passwort_bestätigung = str(input("Bitte Passwort bestätigen:"))
+        passwort = request.form["passwort"]
+    passwort_bestätigung = request.form["passwort_bestätigung"]
     try:
         if passwort_bestätigung == passwort:
             return hash_passwort(passwort)
@@ -49,55 +103,23 @@ def passwort_eingabe():
     except:
         raise NameError("Es sollte nicht möglich sein diesen Fehler zu bekommen :)")
     
-def benutzerdaten_laden():
-    try:
-        with open("benutzerdaten.json", "r") as datei:
-            benutzerdaten = json.load(datei)
-            # Sicherstellen, dass benutzerdaten eine Liste ist
-            if not isinstance(benutzerdaten, list):
-                benutzerdaten = []
-    except FileNotFoundError:
-        print("Die Datei 'benutzerdaten.json' wurde nicht gefunden. Eine neue Datei wird erstellt.")
-        benutzerdaten = []
-    except json.JSONDecodeError:
-        print("Die Datei 'benutzerdaten.json' enthält ungültigen JSON. Eine neue Datei wird erstellt.")
-        benutzerdaten = []
+def benutzerdaten_laden(cursor,request):
+    cursor.execute("SELECT * FROM benutzer")
+    benutzerdaten = []
+    for benutzer in cursor.fetchall():
+        benutzerdaten.append({
+            "id": benutzer[0],
+            "benutzername": benutzer[1],
+            "passwort": benutzer[2]
+        })
     return benutzerdaten
+   
 
-def benutzerdaten_speichern(benutzername, hashed_passwort):
-    # Überprüfen, ob die Datei existiert und nicht leer ist
-    if os.path.exists("benutzerdaten.json") and os.path.getsize("benutzerdaten.json") > 0:
-        with open("benutzerdaten.json", "r") as datei:
-            try:
-                benutzerdaten = json.load(datei)
-                # Sicherstellen, dass benutzerdaten eine Liste ist
-                if not isinstance(benutzerdaten, list):
-                    benutzerdaten = []
-            except json.JSONDecodeError:
-                # Falls die Datei ungültigen JSON enthält, initialisiere eine leere Liste
-                benutzerdaten = []
-    else:
-        # Wenn die Datei nicht existiert oder leer ist, initialisiere eine leere Liste
-        benutzerdaten = []
+def benutzerdaten_speichern(benutzername, hashed_passwort,cursor,connection):
+    cursor.execute("INSERT INTO benutzer (benutzername, passwort) VALUES (%s, %s)", (benutzername, hashed_passwort))
+    connection.commit()
     
-    # Neuen Benutzer hinzufügen
-    neuer_benutzer = {
-        "benutzername": benutzername,
-        "hashed_passwort": hashed_passwort,
-        "Registriert am": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    }
-    benutzerdaten.append(neuer_benutzer)
+
+
+
     
-    # Alle Benutzerdaten speichern
-    with open("benutzerdaten.json", "w") as datei:
-        json.dump(benutzerdaten, datei, indent=4)
-
-benutzername = benutzername_eingabe()
-hashed_passwort = passwort_eingabe()
-
-if hashed_passwort:
-    benutzerdaten_speichern(benutzername, hashed_passwort)
-    print("")
-    print("Benutzerdaten wurden gespeichert.")
-    print("Benutzername:", benutzername)
-    print("Passwort:", hashed_passwort)
