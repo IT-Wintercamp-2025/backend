@@ -1,5 +1,9 @@
 import json
 import bcrypt
+from flask import Flask, request, session
+
+app = Flask(__name__)
+app.secret_key = "0815"
 
 def check_passwort():
     # Lade die Benutzerdaten aus der JSON-Datei
