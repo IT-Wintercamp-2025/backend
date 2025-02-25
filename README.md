@@ -6,17 +6,17 @@ Das README wurde GANZ SICHER NICHT von ChatGPT geschrieben...
 Also nicht darauf vertrauen das irgendwas hier erklärtes funktionieren würde :)
 
 ## Technologien
-- **Programmiersprache:** Python
+- **Programmiersprache:** Python 3
 - **Framework:** Flask
-- **Datenbank:** mySQL
-- **(Authentifizierung:** JWT (JSON Web Token))
-- **Passwort-Hashing:** bcrypt
+- **Datenbank:** MySQL
+- **Authentifizierung:** Session-basiert mit bcrypt-Hashing
+- **Frontend:** HTML/CSS
 
 ## Installation
 ### Voraussetzungen
-- Python 3.8 oder höher
-- `pip` (Python Paketmanager)
-- Virtuelle Umgebung (empfohlen)
+- Python 3.8+
+- MySQL Server
+- Docker (optional, für lokale DB-Verbindung)
 
 ### Setup-Anleitung
 1. Repository klonen:
@@ -53,29 +53,27 @@ Also nicht darauf vertrauen das irgendwas hier erklärtes funktionieren würde :
 ## API-Endpunkte
 | Methode  | Endpunkt               | Beschreibung |
 |----------|------------------------|--------------|
-| POST     | `/api/auth/register`    | Benutzer registrieren |
-| POST     | `/api/auth/login`       | Benutzer anmelden |
-| GET      | `/api/tickets`          | Alle Tickets abrufen |
-| POST     | `/api/tickets`          | Neues Ticket erstellen |
-| GET      | `/api/tickets/<id>`     | Ticketdetails abrufen |
-| PUT      | `/api/tickets/<id>`     | Ticket aktualisieren |
-| DELETE   | `/api/tickets/<id>`     | Ticket löschen |
+| POST     | `/auth/register`    | Benutzer registrieren |
+| POST     | `/auth/login`       | Benutzer anmelden |
+|          |                     | Dashboard         |
+|          |                     | Ticket erstellung |
+|          |                     | Ticketdetails abrufen|
 
-## Authentifizierung
-Das System verwendet JWT für die Authentifizierung. Nach dem Login erhält der Benutzer ein Token, das bei jedem API-Request im `Authorization`-Header gesendet werden muss:
-```http
-Authorization: Bearer <TOKEN>
-```
+
+## Sicherheit
+
+- Passwörter werden mit bcrypt gehasht
+- SQL-Injection Schutz durch parametrisierte Queries
+- Session-Management mit Flask-Secret-Key
 
 ## Rollen & Berechtigungen
-- **Gast:** Kann eigene Tickets erstellen und ansehen
-- **Mitarbeiter:** Kann Tickets bearbeiten und kommentieren
-- **Admin:** Hat Zugriff auf alle Funktionen
+- ### Gast: Kann eigene Tickets erstellen und ansehen
+- user_id = 0
+- ### Mitarbeiter: Kann Tickets bearbeiten und kommentieren
+- user_id = 1
+- ### Admin: Hat Zugriff auf alle Funktionen
+- user_id = 2
 
-## Tests ausführen
-```sh
-pytest tests/
-```
 
 ## Lizenz
 Dieses Projekt steht unter keiner Lizenz.
