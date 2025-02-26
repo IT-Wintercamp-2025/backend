@@ -53,8 +53,8 @@ Also nicht darauf vertrauen das irgendwas hier erklärtes funktionieren würde :
 ## API-Endpunkte
 | Methode  | Endpunkt               | Beschreibung |
 |----------|------------------------|--------------|
-| POST     | `/auth/register`    | Benutzer registrieren |
-| POST     | `/auth/login`       | Benutzer anmelden |
+| POST     | `/SignUp`    | Benutzer registrieren |
+| POST     | `/login`       | Benutzer anmelden |
 |          |                     | Dashboard         |
 |          |                     | Ticket erstellung |
 |          |                     | Ticketdetails abrufen|
