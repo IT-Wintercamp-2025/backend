@@ -13,7 +13,7 @@ def db_connection():
         host="host.docker.internal",
         user="root",
         password="1234",
-        database="testDB"
+        database="Backend"
     )
     return connection
 
@@ -24,7 +24,7 @@ def register():
     try:
         connection = db_connection()
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM benutzer WHERE benutzername = %s", (request.form["benutzername"],))
+        cursor.execute("SELECT * FROM user_data WHERE Benutzername = %s", (request.form["Benutzername"],))
         # Starte die Passwortüberprüfung
         benutzername = benutzername_eingabe(cursor,request)
         hashed_passwort = passwort_eingabe(cursor,request)
@@ -68,16 +68,18 @@ def validate_username(benutzername):
     
     
 def benutzername_eingabe(cursor,request):
-    benutzername = request.form["benutzername"]
+    #benutzername = request.form["Benutzername"]
+    benutzername = input("Bitte Benutzername eingeben:")
     is_name_valid, errormessage = validate_username(benutzername)
     while not is_name_valid:
         print(errormessage)
-        benutzername = request.form["benutzername"]
+        #benutzername = request.form["Benutzername"]
+        benutzername = input("Bitte Benutzername eingeben:")
         is_name_valid, errormessage = validate_username(benutzername)
     benutzerdaten = benutzerdaten_laden(cursor,request)
     # Durchsuche die Benutzerdaten nach dem eingegebenen Benutzernamen
     for benutzer in benutzerdaten:
-        if benutzer["benutzername"] == benutzername:
+        if benutzer["Benutzername"] == benutzername:
             print("Benutzername bereits vergeben.")
             return benutzername_eingabe(cursor,request)
     return benutzername
@@ -90,10 +92,13 @@ def check_passwort_streanght(passwort):
         return True        
 
 def passwort_eingabe(cursor,request):
-    passwort = request.form["passwort"]
+    #passwort = request.form["Passwort"]
+    passwort = input("Bitte Passwort eingeben:")
     while not check_passwort_streanght(passwort):
-        passwort = request.form["passwort"]
-    passwort_bestätigung = request.form["passwort_bestätigung"]
+        #passwort = request.form["Passwort"]
+        passwort = input("Bitte Passwort eingeben:")
+    #passwort_bestätigung = request.form["passwort_bestätigung"]
+    passwort_bestätigung = input("Bitte Passwort bestätigen:")
     try:
         if passwort_bestätigung == passwort:
             return hash_passwort(passwort)
@@ -116,10 +121,10 @@ def benutzerdaten_laden(cursor,request):
    
 
 def benutzerdaten_speichern(benutzername, hashed_passwort,cursor,connection):
-    cursor.execute("INSERT INTO benutzer (benutzername, passwort) VALUES (%s, %s)", (benutzername, hashed_passwort))
+    cursor.execute("INSERT INTO user_data (Benutzername, Passwort) VALUES (%s, %s)", (benutzername, hashed_passwort))
     connection.commit()
     
 
-
+register()
 
     
