@@ -33,8 +33,13 @@ def register():
             return render_template('SignUp.html', message=message)
 
         # Überprüfen, ob der Benutzername mindestens 3 Zeichen lang ist
-        if 20 < len(username) < 3:
-            message = "Der Benutzername muss zwischen 3 und 20 Zeichen lang sein!"
+        if len(username) < 3:
+            message = "Der Benutzername muss mindestens 3 Zeichen lang sein!"
+            return render_template('SignUp.html', message=message)
+        
+        # Überprüfen, ob der Benutzername maximal 20 Zeichen lang ist
+        if len(username) > 20:
+            message = "Der Benutzername darf maximal 20 Zeichen lang sein!"
             return render_template('SignUp.html', message=message)
 
         # Überprüfen, ob der Benutzername nur Buchstaben und Zahlen enthält
