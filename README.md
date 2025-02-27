@@ -1,4 +1,4 @@
-```markdown
+
 # Ticketsystem Backend
 
 ## Überblick
@@ -89,4 +89,3 @@ Dieses Projekt steht unter keiner Lizenz. Nutzung auf eigene Verantwortung.
 **Hinweis:**  
 - Testdaten im Code (z. B. `ticket_id = 3`) müssen im Frontend dynamisch ersetzt werden.
 - Bei Fehlern: Prüfen Sie die Konsolenausgaben und Datenbankverbindungen.
-```
