@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Formular</title>
+    <link rel="stylesheet" href="{{url_for('static', filename="ticket.css")}}">
+</head>
+
+<body>
+    <header>
+        <img src="{{url_for('static', filename="Logo_no_shado.png")}}" alt="Logo" id="Logo">
+        <h1>Neues Ticket verfassen</h1> <br>
+    </header>
+    
+    <div class="container">
+        <form action="{{ url_for ('ticket_hinzufuegen') }}" method="POST">
+            <label for="Gruppe">Gruppe:</label>
+            <select name="Gruppe" id="Gruppe"> <!-- Name-Attribut korrekt setzen --> 
+                <option value="Frontend">Frontend</option>
+                <option value="Backend">Backend</option>
+                <option value="Infrastruktur">Infrastruktur</option>
+            </select>
+            
+            <h3>Betreff</h3>
+            <input type="text" id="betreff" name="betreff">
+
+            <p><label for="Beschreibung">Beschreibung:</label></p>
+            <textarea id="Beschreibung" name="Beschreibung" rows="4" cols="40"></textarea> <br>
+            
+            <button type="submit">Absenden</button>
+        </form>
+    </div> 
+<div class="Formular_Beschreibung">
+    <p><h4>Im Dropdown-Menü "Gruppe" kannst du auswählen, welches Team für dein Anliegen eine Lösung haben könnte.</h4> </p>
+    <br>
+    <p><h4>Im Betreff kannst du kurz das Problem zusammenfassen.</h4></p> <br>
+    <p><h4>Über die Beschreibung ist ein ausführliches Erläutern des Problems möglich.</h4></p>
+    <br> 
+    <p><h4>Über den "Absenden" Button kannst du dein fertiges Ticket abschicken.</h4></p>
+
+</div>
+</body>
+
+</html>
