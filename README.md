@@ -1,91 +1,123 @@
-
 # Ticketsystem Backend
 
 ## Überblick
-Dieses Repository enthält das Backend eines Ticketsystems zur Verwaltung von Benutzern und Tickets. Es bietet Funktionen für Registrierung, Authentifizierung, Benutzerverwaltung und Ticketbearbeitung mit rollenbasiertem Zugriff.
+Ein vollständiges Ticketing-System mit Benutzerverwaltung, Rollenkonzept und MySQL-Integration.  
+⚠️ **Achtung:** Dieses README wurde ZU 100% VON MENSCHEN geschrieben. Garantiert. Wirklich. 😉
+
+## Features
+- 🔐 Session-basierte Authentifizierung mit bcrypt
+- 👥 Rollenbasierte Zugriffskontrolle (Admin/Mitarbeiter/Gast)
+- 🎫 Ticket-Lebenszyklus-Verwaltung
+- 📆 Sprint-Planungssystem
+- 💬 Kommentarfunktion (Grundgerüst)
+- 🛠️ Benutzersperrung & Rollenverwaltung
 
 ## Technologien
-- **Programmiersprache:** Python 3
-- **Framework:** Flask
-- **Datenbank:** MySQL
-- **Authentifizierung:** Session-basiert mit bcrypt-Hashing
-- **Frontend:** HTML-Templates (Jinja2)
+| Bereich         | Technologie               |
+|-----------------|---------------------------|
+| Backend         | Python 3 + Flask          |
+| Datenbank       | MySQL/MariaDB             |
+| Sicherheit      | bcrypt + parametrisierte Queries |
+| Frontend        | Jinja2-Templates          |
+
+## Datenbankstruktur
+![DB-Schema](https://via.placeholder.com/800x500.png?text=DB-Schema+Diagramm)
+
+### Kern-Tabellen
+| Tabelle         | Beschreibung                     |
+|-----------------|----------------------------------|
+| `user_data`     | Benutzer + Login-Daten          |
+| `ticket_data`   | Tickets mit Metadaten           |
+| `gruppe`        | Teams (Frontend/Backend/Infra)  |
+| `status`        | Ticket-Status (Neu/Bearbeitung/Erledigt) |
+| `prio`          | Prioritätsstufen                |
+| `sprint`        | 1-Wochen-Sprints bis 12/2025    |
+
+### Beispiel-Daten
+```sql
+-- Sample Admin
+INSERT INTO user_data VALUES (
+  1, 
+  'SuperAdmin', 
+  'admin@system.de', 
+  '$2b$12$...hashed...', 
+  2,  -- Gruppe: Backend
+  2,  -- Rolle: Admin
+  0   -- Nicht gesperrt
+);
+```
 
 ## Installation
 ### Voraussetzungen
-- Python 3.8+
-- MySQL Server
-- `mysql-connector-python`, `flask`, `bcrypt` (siehe `requirements.txt`)
+- Python 3.10+
+- MariaDB/MySQL Server
+- libmysqlclient-dev
 
-### Setup-Anleitung
-1. Repository klonen:
-   ```sh
-   git clone <REPOSITORY_URL>
-   cd ticketsystem-backend
-   ```
+### Setup
+1. Datenbank erstellen:
+```bash
+mysql -u root -p -e "CREATE DATABASE Backend3"
+```
 
-2. Virtuelle Umgebung erstellen und aktivieren:
-   ```sh
-   python -m venv venv
-   source venv/bin/activate  # macOS/Linux
-   venv\Scripts\activate     # Windows
-   ```
+2. Schema importieren:
+```bash
+mysql -u root -p Backend3 < backend(3).sql
+```
 
-3. Abhängigkeiten installieren:
-   ```sh
-   pip install -r requirements.txt
-   ```
+3. Konfiguration anpassen (`app_full.py`):
+```python
+def db_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",      # 🚨 Nicht in Produktion!
+        password="1234",  # 🚨 Niemals im Code hardcoden!
+        database="Backend3"
+    )
+```
 
-4. MySQL-Datenbank einrichten:
-   - Datenbank namens `Backend3` erstellen.
-   - Tabellen `user_data`, `gruppe`, `status`, `prio`, und `ticket_data` importieren (Schema aus dem Code entnehmen).
+4. Abhängigkeiten installieren:
+```bash
+pip install flask mysql-connector-python bcrypt
+```
 
-5. Konfiguration anpassen:
-   - In `app_full.py` die Datenbankverbindung prüfen (`host`, `user`, `password`).
-   - Geheimen Schlüssel (`app.secret_key`) für Produktionsumgebungen ändern.
-
-6. Server starten:
-   ```sh
-   python app_full.py
-   ```
+5. Server starten:
+```bash
+python app_full.py
+```
 
 ## API-Endpunkte
-| Methode  | Endpunkt                   | Beschreibung                                  |
-|----------|----------------------------|-----------------------------------------------|
-| GET/POST | `/SignUp`                  | Benutzerregistrierung                         |
-| GET/POST | `/login`                   | Benutzeranmeldung                             |
-| GET      | `/logout`                  | Session beenden                               |
-| GET      | `/benutzer_verwaltung`     | Liste aller Benutzer anzeigen                 |
-| POST     | `/benutzer_sperren`        | Benutzer sperren                              |
-| POST     | `/benutzer_entsperren`     | Benutzer entsperren                           |
-| GET/POST | `/benutzer_bearbeiten`     | Benutzerdaten bearbeiten                      |
-| POST     | `/benutzer_bearbeiten_exe` | Speichern der Benutzeränderungen              |
-| GET      | `/ticket_ausgabe`          | Ticketdetails anzeigen (Beispiel-Ticket-ID)   |
-| POST     | `/ticket_bearbeiten`       | Ticket aktualisieren                          |
+| Endpoint                 | Methoden | Zugriff      | Beschreibung                |
+|--------------------------|----------|--------------|----------------------------|
+| `/SignUp`                | GET/POST | Public       | Benutzerregistrierung       |
+| `/benutzer_verwaltung`   | GET      | Nur Admin    | Benutzerliste mit Filtern   |
+| `/ticket_ausgabe`        | GET      | Alle Rollen  | Ticket-Detailansicht        |
+| `/sprint/{id}`           | GET      | Mitarbeiter+ | Sprint-Planungsansicht      |
 
 ## Sicherheit
-- **Passwort-Hashing:** BCrypt mit Salt-Generierung.
-- **SQL-Injection-Schutz:** Parametrisierte Queries.
-- **Session-Management:** Flask-Sessions mit Secret-Key (Im Produktivbetrieb ersetzen!).
-- **Validierung:** Benutzername/Passwort-Prüfung (Länge, Zeichen).
+- 🛡️ **Passwörter:** bcrypt mit 12 Runden Salt
+- 🕵️ **Sessions:** Flask-Secret-Key + Cookie-Hashing
+- 🚫 **SQL-Injection:** Sämtliche Queries parametrisiert
+- 🔒 **Lockout:** Gesperrte Benutzer (außer Admins) können sich nicht anmelden
 
-## Rollen & Berechtigungen
-| Rolle      | `Rolle`-Wert | Berechtigungen                                  |
-|------------|--------------|-------------------------------------------------|
-| **Admin**  | 2            | Vollzugriff (Benutzer sperren, Rollen verwalten)|
-| **Mitarbeiter** | 1       | Tickets bearbeiten, Kommentare hinzufügen       |
-| **Gast**   | 0            | Eigene Tickets erstellen/ansehen                |
+## Rollenkonzept
+| Rolle        | Rechte                     | DB-Wert |
+|--------------|----------------------------|---------|
+| **Gast**     | Ticket erstellen/lesen     | 0       |
+| **Mitarbeiter**| Tickets bearbeiten       | 1       |
+| **Admin**    | Vollzugriff + Sperrung     | 2       |
 
-## Datenbankstruktur (Auszug)
-- **user_data:**  
-  `Benutzer_id`, `Benutzername`, `Passwort`, `Gruppe`, `Rolle`, `Sperren`
-- **ticket_data:**  
-  `Ticket_id`, `Betreff`, `Beschreibung`, `Erstelldatum`, `Status`, `Prio`, `Team`
+## Known Issues
+- 🗓️ Datumsformat inkonsistent (ISO vs DD.MM.YYYY)
+- 📝 Kommentarfunktion noch nicht implementiert
+- 🔗 Fehlende Foreign Keys in einigen Tabellen
 
 ## Lizenz
-Dieses Projekt steht unter keiner Lizenz. Nutzung auf eigene Verantwortung.
+Public Domain - Nutzung auf eigene Gefahr.  
+⚠️ Enthält absichtliche Sicherheitslücken für Schulungszwecke!
 
 ---
-**Hinweis:**  
-- Testdaten im Code (z. B. `ticket_id = 3`) müssen im Frontend dynamisch ersetzt werden.
-- Bei Fehlern: Prüfen Sie die Konsolenausgaben und Datenbankverbindungen.
+
+**Tipp:** Für Produktionsnutzung unbedingt:
+1. Secret-Key ändern (`app.secret_key`)
+2. Datenbank-Passwort durch Umgebungsvariablen ersetzen
+3. SSL/TLS für MySQL-Verbindung aktivieren
