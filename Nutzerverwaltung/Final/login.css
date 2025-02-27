@@ -1,0 +1,105 @@
+:root {
+    --background-color: hsl(43, 32%, 91%);
+    --border-color: #596e79;
+    --login-color: #c7b198;
+    --hover-color: #a89f8e;
+    --text-color: #333;
+    --message-color: #ff6b6b;
+}
+
+/* Container für die gesamte Seite */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Login Box */
+.login-container {
+    width: 300px;
+    padding: 20px;
+    border: solid var(--border-color) 4px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    background-color: var(--login-color);
+    color: var(--text-color);
+}
+
+.titel {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.titel h2 {
+    margin: 0;
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+.message {
+    margin-bottom: 16px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: var(--message-color);
+    color: white;
+    text-align: center;
+    font-size: 14px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#username, #password {
+    width: 100%;
+    margin: 4px 0 16px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+#button {
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+    padding: 10px;
+    background-color: var(--border-color);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#button:hover {
+    background-color: var(--hover-color);
+}
+
+.submit {
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.link-to-signup {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.link-to-signup a {
+    color: var(--border-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-to-signup a:hover {
+    text-decoration: underline;
+}
