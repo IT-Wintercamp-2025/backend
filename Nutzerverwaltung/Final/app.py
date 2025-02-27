@@ -101,18 +101,23 @@ def login():
         if connection:
             cursor = connection.cursor(dictionary=True)
             
-            cursor.execute('SELECT * FROM user_data WHERE Benutzername = %s AND Sperren = 1', (username,))
-            is_user_locked = cursor.fetchone()
-            if is_user_locked:
-                message = 'Dieser Nutzer wurde gesperrt!'
-                cursor.close()
-                connection.close()
-                return render_template('Login.html', message=message)
-            
+            # Fetch the user data first
             cursor.execute('SELECT * FROM user_data WHERE Benutzername = %s', (username,))
             user = cursor.fetchone()
 
             if user:
+                # Check if the user is locked
+                if user['Sperren'] == 1:
+                    if user['Rolle'] != 2:
+                        message = 'Dieser Nutzer wurde gesperrt!'
+                        cursor.close()
+                        connection.close()
+                        return render_template('Login.html', message=message)
+                    else:
+                        # Admin is locked, but still allowed to proceed
+                        session['locked_message'] = 'Du wurdest als Admin gesperrt, womöglich wurde das System gehackt!'
+
+                # Check the password
                 if bcrypt.checkpw(password.encode('utf-8'), user['Passwort'].encode('utf-8')):
                     session['loggedin'] = True
                     session['Benutzer_id'] = user['Benutzer_id']
