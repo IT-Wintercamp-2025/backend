@@ -1,0 +1,97 @@
+:root {
+    --background-color: hsl(43, 32%, 91%);
+    --border-color: #596e79;
+    --login-color: #c7b198;
+}
+
+/* Container für die gesamte Seite */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+    flex-direction: column; /* Vertikale Ausrichtung der Inhalte */
+    text-align: center; /* Zentriert den Text */
+    padding-top: 40px;
+}
+
+/* Container für den gesamten Inhalt */
+.container {
+    width: 350px;
+    padding: 20px;
+    border: solid var(--border-color) 4px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px black; 
+    background-color: var(--login-color);
+    color: black;
+}
+
+/* Titel */
+h2 {
+    color: var(--border-color);
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Formularcontainer */
+form {
+    width: 100%;
+}
+
+/* Formularüberschriften */
+form h3 {
+    margin: 10px 0;
+    color: var(--border-color);
+}
+
+form p {
+    margin: 5px 0 15px 0;
+}
+
+/* Eingabefelder */
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: solid 2px var(--border-color);
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--border-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    transition: all 0.3s;
+    background-color: #4d5d66;
+}
+
+/* Styling für versteckte Eingaben */
+input[type="hidden"] {
+    display: none;
+}
+
+/* Styling für Labels */
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 8px;
+    color: var(--border-color);
+}
+
+/* Abstand zwischen den Formularfeldern */
+form > div {
+    margin-bottom: 16px;
+}
