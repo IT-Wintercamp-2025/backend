@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./ticketuebersicht.css">
+    <title>Ticketsystem</title>
+    </head>
+    <body>
+
+        <header>
+            <img src="/Images/Logo_no_shado.png" alt="Logo" class="Logo">
+            <h1>Ticketsystem</h1>
+            <nav>
+                <div class="dropdown">
+                    <button class="dropBtn">Dropdown
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a id="a" href="#">Link 1</a>
+                        <a  id="a" href="#">Link 2</a>
+                        <a id="a" href="#">Link 3</a>
+                    </div>
+                </div>
+              </nav>
+        </header>
+    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ticket ID</th>
+                    <th>Benutzername</th>
+                    <th>Betreff</th>
+                    <th>Beschreibung</th>
+                    <th>Status</th>
+                    <th>Priorität</th>
+                    <th>Team</th>
+                    <th>Erstellungs Datum</th>
+                    <th>Sprint</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>{{ ticket[0] }}</td>
+                    <td>{{ ticket[1] }}</td>
+                    <td>{{ ticket[2] }}</td>
+                    <td>{{ ticket[3][:50] }}{% if ticket[3]|length > 50 %}...{% endif %}</td>
+                    <td>{{ ticket[4] }}</td>
+                    <td>{{ ticket[5] }}</td>
+                    <td>{{ ticket[6] }}</td>
+                    <td>{{ ticket[7] }}</td>
+                    <td>{{ ticket[8] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="centering">
+        <div class="ticketbutton">
+            <button type="button"><strong>Neues Ticket erstellen</strong></button>
+        </div>
+    </div>
+    <footer>
+        <!--Impressum etc.-->
+    </footer>
+
+    </body>
+</html>
