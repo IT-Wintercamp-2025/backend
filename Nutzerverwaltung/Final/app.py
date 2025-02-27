@@ -137,7 +137,7 @@ def login():
 def logout():
     session.pop('loggedin', None)
     session.pop('Benutzer_id', None)
-    return render_template('logout.html')
+    return render_template('Logout.html')
 
 @app.route('/index')
 def index():
