@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrieren</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='SignUp.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="login-container">
+            <div class="titel">
+                <h2>SignUp</h2>
+            </div>
+            
+            <form action="#" method="POST">
+                <label for="username">Benutzername:</label>
+                <input type="text" id="username" name="username" placeholder="Benutzername" required>
+
+                <label for="password">Passwort:</label>
+                <input type="password" id="password" name="password" placeholder="Passwort" required>
+
+                <label for="password_be">Passwort bestätigen:</label>
+                <input type="password" id="password_be" name="password_be" placeholder="Passwort bestätigen" required>
+
+                <!-- Fehlermeldung oder Erfolgsmeldung -->
+                {% if message %}
+                    {% if message == "Registrierung erfolgreich!" %}
+                        <div class="success-message">{{ message }}</div>
+                    {% else %}
+                        <div class="message">{{ message }}</div>
+                    {% endif %}
+                {% endif %}
+
+                <div class="submit">
+                    <input type="submit" id="button" value="Registrieren">
+                </div>
+            </form>
+            <div class="link-to-login">
+                <p>Du hast schon ein Konto? <a href="{{ url_for('login') }}">Hier anmelden</a></p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
