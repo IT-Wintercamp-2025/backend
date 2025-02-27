@@ -130,9 +130,11 @@ def login():
                     #session['user_id'] = user['id']
                     session['username'] = user['Benutzername']
                     if user['Rolle'] == 2:
-                        return redirect(url_for('Dashboard.html')) 
+                        return redirect(url_for('Dashboard.html')) # Hier das HTML vom Admin Dashboard
+                    elif user['Rolle'] == 1:
+                        return render_template('Dashboard.html')   # Hier das HTML vom Mitarbeiter Dashboard
                     else:
-                        return render_template('Dashboard.html')
+                        return render_template('Dashboard.html')   # Hier das HTML vom Gast Dashboard
                 else:
                     message = 'Falsches Passwort!'
             else:
