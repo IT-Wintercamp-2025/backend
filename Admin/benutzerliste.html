@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benutzerliste</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 5px 10px;
+            margin: 0 5px;
+            text-decoration: none;
+            border: 1px solid #ddd;
+        }
+        .pagination a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>Benutzerliste</h2>
+    
+    <!-- Suchfeld -->
+    <form method="get" action="/">
+        <input type="text" name="search" value="{{ search_query }}" placeholder="Suchen...">
+        <input type="submit" value="Suchen">
+    </form>
+
+    <!-- Tabelle mit Benutzerdaten -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Zugeteiltes Team</th>
+                <th>Rolle</th>
+                <th>Aktionen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <p>{% for myresults in myresult %}</p>
+            <tr>
+                <td>{{ myresults[0] }}</td>
+                <td>{{ myresults[1] }}</td>
+                <td>{{ myresults[2] }}</td>
+                <td>{{ myresults[4] }}</td>
+                <td>{{ myresults[5] }}</td>
+                <td>{{ myresults[6] }}</td>
+                <td>
+                    {% if myresults[6] == 0 or myresults[6] is none %}
+                        <form action="{{ url_for('benutzer_sperren') }}" method="POST">
+                            <input type="hidden" name="user_id" value="{{ myresults[0] }}">
+                            <input type="submit" value="Sperren">
+                        </form>
+                    {% else %}
+                        <form action="{{ url_for('benutzer_entsperren') }}" method="POST">
+                            <input type="hidden" name="user_id" value="{{ myresults[0] }}">
+                            <input type="submit" value="Entsperren">
+                        </form>
+                    {% endif %}
+                    <form action="{{ url_for ('benutzer_bearbeiten') }}" method="POST">
+                        <input type="hidden" name="user_id" value="{{ myresults[0] }}">
+                        <input type="submit" value="Bearbeiten">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Paginierung -->
+    <div class="pagination">
+        {% if current_page > 1 %}
+        <a href="{{ url_for('hello', page=1, search=search_query) }}">w</a>
+        <a href="{{ url_for('hello', page=current_page - 1, search=search_query) }}">v</a>
+        {% endif %}
+
+        {% for page_num in range(1, total_pages + 1) %}
+        <a href="{{ url_for('hello', page=page_num, search=search_query) }}" 
+           class="{{ 'active' if page_num == current_page else '' }}">{{ page_num }}</a>
+        {% endfor %}
+
+        {% if current_page < total_pages %}
+        <a href="{{ url_for('hello', page=current_page + 1, search=search_query) }}">></a>
+        <a href="{{ url_for('hello', page=total_pages, search=search_query) }}">>></a>
+        {% endif %}
+    </div>
+
+    <p>Zeige {{ myresult|length }} von {{ total_rows }} Ergebnissen</p>
+</body>
+</html>
