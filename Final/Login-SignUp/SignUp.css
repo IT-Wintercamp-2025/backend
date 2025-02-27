@@ -1,0 +1,152 @@
+:root {
+    --background-color: hsl(43, 32%, 91%);
+    --border-color: #596e79;
+    --login-color: #c7b198;
+    --input-background: #f0f0f0;
+    --input-focus: #d3d3d3;
+    --button-hover: #a89c84;
+    --text-color: #333;
+    --error-color: #c62828;
+    --success-color: #4caf50; /* Neue Farbe für Erfolgsmeldungen */
+}
+
+/* Grundlegende Styles für die gesamte Seite */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+}
+
+/* Container für das Registrierungsformular */
+.login-container {
+    width: 90%;
+    max-width: 400px;
+    padding: 25px;
+    border: solid var(--border-color) 4px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    background-color: var(--login-color);
+    text-align: center;
+}
+
+/* Titel des Formulars */
+.titel h2 {
+    margin: 0 0 20px 0;
+    font-size: 24px;
+    color: var(--text-color);
+}
+
+/* Formular-Stile */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: bold;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--input-background);
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--border-color);
+    background-color: var(--input-focus);
+}
+
+/* Schaltfläche (Button) */
+#button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--border-color);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#button:hover {
+    background-color: var(--button-hover);
+}
+
+/* Fehlermeldung */
+.message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #ffebee;
+    color: var(--error-color);
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Erfolgsmeldung */
+.success-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #e8f5e9; /* Hellgrüner Hintergrund */
+    color: var(--success-color); /* Grüne Schrift */
+    text-align: center;
+    font-size: 14px;
+}
+
+.link-to-login {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.link-to-login a {
+    color: var(--border-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-to-login a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design für kleinere Bildschirme */
+@media (max-width: 480px) {
+    .login-container {
+        width: 100%;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .titel h2 {
+        font-size: 20px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    #button {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
