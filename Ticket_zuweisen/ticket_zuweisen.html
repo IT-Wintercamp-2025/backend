@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Zuweisen</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='ticket_zuweisen.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h2>Ticket zuweisen</h2>
+        <form action="{{ url_for ('ticket_zuweisen_exe') }}" method="POST">
+            <h3>Betreff</h3>
+            <p>{{ test[2] }}</p>
+            <h3>Beschreibung</h3>
+            <p>{{ test[3] }}</p>
+
+            <label for="Status">Status:</label>
+            <input type="text" id="Status" name="Status" value="{{ test3 }}"><br><br>
+
+            <label for="Prio">Priorität:</label>
+            <input type="text" id="Prio" name="Prio" value="{{ test4 }}"><br><br>
+
+            <label for="Team">Team:</label>
+            <input type="text" id="Team" name="Team" value="{{ test5 }}"><br><br>
+
+            <label for="Datum">Deadline:</label>
+            <input type="text" id="Datum" name="Datum" value="{{ test2 }}"><br><br>
+
+            <input type="hidden" name="Ticket_id" value="{{ test[0] }}">
+            
+            <input type="submit" value="Speichern">
+        </form>
+    </div>
+</body>
+</html>
