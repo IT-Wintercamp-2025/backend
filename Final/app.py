@@ -1,7 +1,9 @@
 import mysql
 from flask import Flask
 
-from refactor.routes.a_index import index_routes
+from Final.refactor.routes.a_index import index_routes
+
+app = Flask(__name__)
 
 """
 An dieser Stelle müssen die Anmeldedaten der ticketsystem-database-1 angegeben werden.
@@ -28,14 +30,11 @@ def database_connection():
 
 
 def create_app():
-    app = Flask(__name__)
     app.secret_key = '0229'
 
     # Hier wird die lokale Methode register_blueprint_routes() aufgerufen, welche nacheinander alle HTML Seiten registriert
     register_blueprint_routes(app)
     print("Routes registered")
-
-    return app
 
 
 def register_blueprint_routes(app):
@@ -57,9 +56,7 @@ def register_blueprint_routes(app):
     index_routes.register_routes(app)
 
 
-app = None
-
 if __name__ == '__main__':
-    print("hello, __name__ == __main__")
-    app = create_app()
+    create_app()
+    print("hi!")
     app.run(host='0.0.0.0', port=5000)
