@@ -1,7 +1,7 @@
 ## Super, du hast es gefunden. Wie geht es jetzt weiter?
 
-- Der Startpunkt der Anwendung ist nun final die [__init__.py](https://github.com/IT-Wintercamp-2025/backend/blob/main/Final/__init__.py) Datei in /Final
-- Die __init__.py ist dafür verantwortlich, alle möglichen URLs für den Browser zu registrieren.
+- Der Startpunkt der Anwendung ist nun final die [app.py](https://github.com/IT-Wintercamp-2025/backend/blob/main/Final/app.py) Datei in /Final
+- Die app.py ist dafür verantwortlich, alle möglichen URLs für den Browser zu registrieren.
 - Lest euch bitte unbedingt die Kommentare in der create_app & register_blueprint_routes Methode durch!
 - Die Routen befinden sich in sortierbaren Ordnern - ermöglich wird das durch einen aufsteigenden Prefix wie "a_", "b_", ..., "z_"
     - Versucht, sie in einer logischen und untereinaner zusammenhängenden Reihenfolge anzuordnen :) 

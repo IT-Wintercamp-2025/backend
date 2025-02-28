@@ -1,7 +1,7 @@
 import mysql
 from flask import Flask
 
-from Final.refactor.routes.a_index import index_routes
+from refactor.routes.a_index import index_routes
 
 """
 An dieser Stelle müssen die Anmeldedaten der ticketsystem-database-1 angegeben werden.
@@ -46,7 +46,7 @@ def register_blueprint_routes(app):
 
         Führt die Muster und Beispiele sinnvoll fort, dann habt ihr einen super Überblick und könnt strukturiert das Projekt beenden.
     """
-    
+
     """
     <gruppen_name(bspw. auth, user, ticket, admin)>_routes.register_routes(app)
     auth würde beispielsweise register, login und logout implementieren,
@@ -57,7 +57,9 @@ def register_blueprint_routes(app):
     index_routes.register_routes(app)
 
 
-app = create_app()
+app = None
 
 if __name__ == '__main__':
+    print("hello, __name__ == __main__")
+    app = create_app()
     app.run(host='0.0.0.0', port=5000)
