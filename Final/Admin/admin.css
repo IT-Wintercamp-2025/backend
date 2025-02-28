@@ -15,7 +15,7 @@ body {
 header {
     background-color: var(--header-color);
     padding: 20px 50px;
-    margin-bottom: 16px;
+    margin-bottom: 5px;
     /*Dinger auseinander*/
     align-items: center;
     /*Objekte Mittig*/
@@ -100,4 +100,9 @@ h2 {
 table, th, tr, td {
     border: solid 1px #c0bdb7;
     border-spacing: 0px;
+}
+
+main {
+    margin-bottom: 5px;
+    background-color: transparent;
 }
