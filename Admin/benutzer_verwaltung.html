@@ -46,6 +46,10 @@
                         <input type="hidden" name="user_id" value="{{ myresults[0] }}">
                         <input id="button" type="submit" value="Bearbeiten">
                         </form>
+                    <form action="{{ url_for ('benutzer_loeschen') }}" method="POST">
+                        <input type="hidden" name="user_id" value="{{ myresults[0] }}">
+                        <input id="button" type="submit" value="Löschen">
+                    </form>
                 </td>
             </tr>
             {% endfor %}
