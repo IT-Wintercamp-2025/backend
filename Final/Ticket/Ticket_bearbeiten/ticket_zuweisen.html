@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Zuweisen</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='ticket_zuweisen.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h2>Ticket zuweisen</h2>
+        <form action="{{ url_for('ticket_zuweisen_exe') }}" method="POST">
+            <h3>Betreff</h3>
+            <p>{{ test[2] }}</p>
+            <h3>Beschreibung</h3>
+            <p>{{ test[3] }}</p>
+
+            <!-- Status Dropdown -->
+            <label for="Status">Status:</label>
+            <select id="Status" name="Status">
+                <option value="Neu" {% if test3 == "Neu" %}selected{% endif %}>Neu</option>
+                <option value="Bearbeitung" {% if test3 == "Bearbeitung" %}selected{% endif %}>Bearbeitung</option>
+                <option value="Erledigt" {% if test3 == "Erledigt" %}selected{% endif %}>Erledigt</option>
+            </select>
+            <br><br>
+
+            <!-- Priorität Dropdown -->
+            <label for="Prio">Priorität:</label>
+            <select id="Prio" name="Prio">
+                <option value="Niedrig" {% if test4 == "Niedrig" %}selected{% endif %}>Niedrig</option>
+                <option value="Mittel" {% if test4 == "Mittel" %}selected{% endif %}>Mittel</option>
+                <option value="Hoch" {% if test4 == "Hoch" %}selected{% endif %}>Hoch</option>
+            </select>
+            <br><br>
+
+            <!-- Team Dropdown -->
+            <label for="Team">Team:</label>
+            <select id="Team" name="Team">
+                <option value="Frontend" {% if test5 == "Frontend" %}selected{% endif %}>Frontend</option>
+                <option value="Backend" {% if test5 == "Backend" %}selected{% endif %}>Backend</option>
+                <option value="Infrastruktur" {% if test5 == "Infrastruktur" %}selected{% endif %}>Infrastruktur</option>
+            </select>
+            <br><br>
+
+            <label for="Datum">Deadline:</label>
+            <input type="text" id="Datum" name="Datum" value="{{ test2 }}" readonly><br><br>
+
+            <!-- Anzeige der bestehenden Kommentare -->
+            <h3>Bereits bestehende Kommentare:</h3>
+            <div class="comments">
+                {% for comment in test6 %}
+                    <div class="comment">
+                        <p><strong>Ersteller:</strong> {{ comment[1] }}</p>
+                        <p><strong>Datum:</strong> {{ comment[4] }}</p>
+                        <p><strong>Kommentar:</strong> {{ comment[3] }}</p>
+                        <hr>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Textarea für Kommentare -->
+            <label for="Kommentar">Kommentar hinzufügen:</label>
+            <textarea id="Kommentar" name="Kommentar" rows="4" placeholder="Füge hier deinen Kommentar hinzu..."></textarea><br><br>
+            <input type="hidden" name="Ticket_id" value="{{ test[0] }}">
+            
+            <input type="submit" value="Speichern">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+:root {
+    --background-color: hsl(43, 32%, 91%);
+    --border-color: #596e79;
+    --login-color: #c7b198;
+}
+
+/* Container für die gesamte Seite */
+html, body {
+    min-height: 100vh; /* Mindestens die Höhe des Viewports */
+    margin: 0;
+    background-color: var(--background-color);
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding-top: 5px; /* Sicherstellen, dass der Inhalt oben sichtbar bleibt */
+    overflow-y: auto; /* Scrollbar aktivieren, falls notwendig */
+}
+
+/* Container für den gesamten Inhalt */
+.container {
+    width: 90%;
+    max-width: 500px;
+    padding: 20px;
+    border: solid var(--border-color) 4px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px black;
+    background-color: var(--login-color);
+    color: black;
+    margin: 20px auto; /* Sorgt für zentrierte Ausrichtung */
+}
+
+/* Titel */
+h2 {
+    color: var(--border-color);
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Formularcontainer */
+form {
+    width: 100%;
+}
+
+/* Formularüberschriften */
+form h3 {
+    margin: 10px 0;
+    color: var(--border-color);
+}
+
+form p {
+    margin: 5px 0 15px 0;
+}
+
+/* Eingabefelder */
+input[type="text"], textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: solid 2px var(--border-color);
+    box-sizing: border-box;
+}
+
+/* Textarea speziell anpassen */
+textarea {
+    resize: vertical; /* Erlaubt vertikale Größenanpassung */
+}
+
+/* Kommentaranzeige */
+.comments {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    border: solid 1px var(--border-color);
+    max-height: 300px; /* Falls viele Kommentare vorhanden sind, begrenzen */
+    overflow-y: auto; /* Scrollbar aktivieren */
+}
+
+.comment {
+    margin-bottom: 15px;
+}
+
+.comment p {
+    margin: 5px 0;
+}
+
+.comment hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Eingabefelder für den Submit-Button */
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--border-color);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    transition: all 0.3s;
+    background-color: #4d5d66;
+}
+
+/* Styling für versteckte Eingaben */
+input[type="hidden"] {
+    display: none;
+}
+
+/* Styling für Labels */
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 8px;
+    color: var(--border-color);
+}
+
+/* Abstand zwischen den Formularfeldern */
+form > div {
+    margin-bottom: 16px;
+}
+/* Styling für Dropdowns */
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: solid 2px var(--border-color);
+    background-color: white;
+    box-sizing: border-box;
+    cursor: pointer;
+}
