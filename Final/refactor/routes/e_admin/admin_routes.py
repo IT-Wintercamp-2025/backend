@@ -7,7 +7,7 @@ admin_blueprint = Blueprint("admin", __name__, template_folder="templates")
 def db_connection():
     try:
         connection = mysql.connector.connect(
-            host="adminystem-database-1", # vor Ende zur Finalen Datenbank ändern
+            host="ticketsystem-database-1", # vor Ende zur Finalen Datenbank ändern
             user="root",                    # vor Ende ändern
             password="1234",                # vor Ende ändern
             database="backend"              # vor Ende zur Finalen Datenbank ändern

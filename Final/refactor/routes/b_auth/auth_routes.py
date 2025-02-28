@@ -11,7 +11,7 @@ def db_connection():
             host="ticketsystem-database-1", # vor Ende zur Finalen Datenbank ändern
             user="root",                    # vor Ende ändern
             password="1234",                # vor Ende ändern
-            database="backend3"              # vor Ende zur Finalen Datenbank ändern
+            database="backend"              # vor Ende zur Finalen Datenbank ändern
         )
         return connection
     except mysql.connector.Error as error:
