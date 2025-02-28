@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="./ticketuebersicht.css">
-    <title>Ticketystem</title>
+    <title>Ticketsystem</title>
     </head>
     <body>
 
@@ -22,6 +22,24 @@
               <table>
                 <thead>
                   <tr>
+                    <select name="status" id="statusfilter" onchange="this.form.submit()">
+                        <option value="neu">Neu</option>
+                        <option value="erstell">Erstell Datun</option>
+                        <option value="ablauf">Ablauf Datum</option>
+                        <option value="prio">Priorität</option>
+                    </select>
+                    <select name="status" id="statusfilter" onchange="this.form.submit()">
+                        <option value="">In Bearbeitung</option>
+                        <option value="erstell">Erstell Datun</option>
+                        <option value="ablauf">Ablauf Datum</option>
+                        <option value="prio">Priorität</option>
+                    </select>
+                    <select name="status" id="statusfilter" onchange="this.form.submit()">
+                        <option value="abgeschloßen">Abgeschloßen</option>
+                        <option value="erstell">Erstell Datun</option>
+                        <option value="ablauf">Ablauf Datum</option>
+                        <option value="prio">Priorität</option>
+                    </select>
                     <th>ID</th>
                     <th>Benutzername</th>
                     <th>Betreff</th>
