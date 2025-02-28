@@ -14,9 +14,11 @@ def db_connection():
     )
     return connection
 
-@app.route("/ticket_zuweisen")
+@app.route("/ticket_zuweisen", methods=["GET", "POST"])
 def ticket_zuweisen():
-    id1 = "1"
+    if request.method == "POST":
+        id1 = request.form=['ticket_id']
+    #id1 = "1"
     try:
         connection = db_connection()
         cursor = connection.cursor()
