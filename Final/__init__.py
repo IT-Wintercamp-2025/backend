@@ -5,6 +5,8 @@ from Final.refactor.routes.a_index import index_routes
 
 """
 An dieser Stelle müssen die Anmeldedaten der ticketsystem-database-1 angegeben werden.
+Versucht möglichst, eine zentrale database_connection zu haben, da jeder Request eine neue Verbindung aufbauen muss.
+    Das könnte die Leistung und Funktionstüchtigkeit beeinträchtigen.
 
 TODO: Insert correct database credentials
 TODO #2: Let database import .sql file -> docker-compose.yml of application-dockerized
@@ -43,6 +45,13 @@ def register_blueprint_routes(app):
         -> Hinweis: Die statischen Dateien wie style.css, Bilder, etc. befinden sich unter Final/static. Auch dort ist eine Ordner- und Dateistruktur gegeben.
 
         Führt die Muster und Beispiele sinnvoll fort, dann habt ihr einen super Überblick und könnt strukturiert das Projekt beenden.
+    """
+    
+    """
+    <gruppen_name(bspw. auth, user, ticket, admin)>_routes.register_routes(app)
+    auth würde beispielsweise register, login und logout implementieren,
+    user das anlegen, löschen, bearbeiten
+    ticket "  
     """
     # Ihr müsst nichts weiter tun, als die untenliegende Zeile Code sinnvoll an die weiteren gruppierbaren HTML Seiten anzupassen und unter diesem Aufruf einzufügen - wieder und wieder. :)
     index_routes.register_routes(app)
