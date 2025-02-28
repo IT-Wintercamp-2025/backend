@@ -179,20 +179,22 @@ def dashboard():
 
     if status_filter0 == "erstell":
         ausgewaltes_dict = dictionary_status_0_erstelldatum
-    if status_filter0 == "ablauf":
+    elif status_filter0 == "ablauf":
         ausgewaltes_dict = dictionary_status_0_ablaufdatum
-    if status_filter0 == "prio":
+    elif status_filter0 == "prio":
         ausgewaltes_dict = dictionary_status_0_prio
     
-    if status_filter1 == "erstell":
+    elif status_filter1 == "erstell":
         ausgewaltes_dict = dictionary_status_1_erstelldatum
-    if status_filter1 == "ablauf":
+    elif status_filter1 == "ablauf":
         ausgewaltes_dict = dictionary_status_1_ablaufdatum
-    if status_filter1 == "prio":
+    elif status_filter1 == "prio":
         ausgewaltes_dict = dictionary_status_1_prio
 
-    if status_filter2 == "erstell":
+    elif status_filter2 == "erstell":
         ausgewaltes_dict = dictionary_status_2_erstelldatum_reverse
+    else: 
+        ausgewaltes_dict = dictionary_gesamt
 
     query = """
     SELECT ticket_data.Ticket_id, user_data.Benutzername, ticket_data.Betreff, ticket_data.Beschreibung, ticket_data.Status, ticket_data.Prio, ticket_data.Team, ticket_data.Erstelldatum, ticket_data.Sprint
