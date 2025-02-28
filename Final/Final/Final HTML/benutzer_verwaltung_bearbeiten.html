@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benutzer bearbeiten</title>
+    <link rel="stylesheet" href="{{url_for('static', filename="admin.css")}}" >
+</head>
+<body>
+    <h2>User bearbeiten</h2>
+    <form action="{{ url_for ('benutzer_bearbeiten_exe') }}" method="POST">
+        <label for="Name">Name:</label><br>
+        <input type="text" id="Name" name="Name" value="{{ test[1] }}"><br>
+        <label for="Gruppe">Gruppe:</label><br>
+        <input type="text" id="Gruppe" name="Gruppe" value="{{ test2 }}"><br>
+        <label for="Rolle">Rolle:</label><br>
+        <input type="text" id="Rolle" name="Rolle" value="{{ test[5] }}"><br>
+        <input type="hidden" name="user_id" value="{{ test[0] }}">
+        <input id="button" type="submit" value="Speichern">
+      </form> 
+</body>
+</html>
