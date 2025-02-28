@@ -12,15 +12,15 @@
     </header>
     <main>
         <form action="{{ url_for('benutzer_verwaltung') }}" method="GET">
-            <input type="text" name="search_query" placeholder="Nach Benutzer suchen...">
-            <select name="search_column">
+            <input type="text" name="search_query" placeholder="Nach Benutzer suchen..." id="Such">
+            <select name="search_column" id="drop">
                 <option value="id">ID</option>
                 <option value="name">Name</option>
                 <option value="zugeteiltes_team">Zugeteiltes Team</option>
                 <option value="rolle">Rolle</option>
                 <option value="gesperrt">Gesperrt</option>
             </select>
-            <input type="submit" value="Suchen">
+            <input type="submit" value="Suchen" id="bSuch">
         </form>        
     </main>
     <br>
