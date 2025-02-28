@@ -24,7 +24,7 @@ header {
 
 th {
     background-color: var(--fillin-color);
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
     padding: 8px 4px;
     border: solid var(--footer-color);
 }
@@ -98,6 +98,6 @@ h2 {
 }
 
 table, th, tr, td {
-    border: solid 1px #dadada;
+    border: solid 1px #c0bdb7;
     border-spacing: 0px;
 }
