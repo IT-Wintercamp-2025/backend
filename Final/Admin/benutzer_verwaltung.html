@@ -14,6 +14,7 @@
         <form action="{{ url_for('benutzer_verwaltung') }}" method="GET">
             <input type="text" name="search_query" placeholder="Nach Benutzer suchen...">
             <select name="search_column">
+                <option value="id">ID</option>
                 <option value="name">Name</option>
                 <option value="zugeteiltes_team">Zugeteiltes Team</option>
                 <option value="rolle">Rolle</option>
@@ -22,7 +23,6 @@
             <input type="submit" value="Suchen">
         </form>        
     </main>
-    <br>
     <table>
         <thead>
             <tr>

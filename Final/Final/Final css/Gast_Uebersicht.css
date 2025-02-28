@@ -1,0 +1,133 @@
+        :root {
+            --background-color: hsl(43, 32%, 91%);
+            --border-color: #596e79;
+            --login-color: #c7b198;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--background-color);
+            font-family: Arial, Helvetica, sans-serif;
+            flex-direction: column;
+            text-align: center;
+            padding-top: 12px;
+        }
+
+        /* Container für den gesamten Inhalt */
+        .container {
+            width: 90%;
+            padding: 20px;
+            border: solid var(--border-color) 4px;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px black;
+            background-color: var(--login-color);
+            color: black;
+        }
+
+        /* Titel */
+        h2 {
+            color: var(--border-color);
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Formularcontainer */
+        form {
+            width: 100%;
+        }
+
+        /* Formularüberschriften */
+        form h3 {
+            margin: 10px 0;
+            color: var(--border-color);
+        }
+
+        form p {
+            margin: 5px 0 15px 0;
+        }
+
+        /* Eingabefelder */
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: solid 2px var(--border-color);
+            box-sizing: border-box;
+        }
+
+        /* Textarea speziell anpassen */
+        textarea {
+            resize: vertical;
+        }
+
+        /* Ticket Tabelle */
+        .table-container {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: solid 1px var(--border-color);
+            text-align: left;
+        }
+
+        table th {
+            background-color: var(--border-color);
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* Button */
+        button {
+            padding: 10px 20px;
+            background-color: var(--border-color);
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #4d5d66;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: 20px;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-top: solid 1px var(--border-color);
+            font-size: 12px;
+            color: var(--border-color);
+        }
+
+        .footer .flexbox {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer img {
+            width: 60px;
+            height: auto;
+        }

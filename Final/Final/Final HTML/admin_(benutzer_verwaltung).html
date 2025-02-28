@@ -4,13 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benutzerliste</title>
-    <link rel="stylesheet" href="{{url_for('static', filename="admin.css")}}" >
+    <link rel="stylesheet" href="{{url_for('static', filename='admin.css')}}" >
 </head>
 <body>
     <header>
         <h2>Benutzerliste</h2>
     </header>
-    
+    <main>
+        <form action="{{ url_for('benutzer_verwaltung') }}" method="GET">
+            <input type="text" name="search_query" placeholder="Nach Benutzer suchen...">
+            <select name="search_column">
+                <option value="id">ID</option>
+                <option value="name">Name</option>
+                <option value="zugeteiltes_team">Zugeteiltes Team</option>
+                <option value="rolle">Rolle</option>
+                <option value="gesperrt">Gesperrt</option>
+            </select>
+            <input type="submit" value="Suchen">
+        </form>        
+    </main>
     <table>
         <thead>
             <tr>
@@ -45,7 +57,11 @@
                     <form action="{{ url_for ('benutzer_bearbeiten') }}" method="POST">
                         <input type="hidden" name="user_id" value="{{ myresults[0] }}">
                         <input id="button" type="submit" value="Bearbeiten">
-                        </form>
+                    </form>
+                    <form action="{{ url_for ('benutzer_loeschen') }}" method="POST">
+                        <input type="hidden" name="user_id" value="{{ myresults[0] }}">
+                        <input id="button" type="submit" value="Löschen">
+                    </form>
                 </td>
             </tr>
             {% endfor %}

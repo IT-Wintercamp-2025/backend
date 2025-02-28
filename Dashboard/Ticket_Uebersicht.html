@@ -49,20 +49,29 @@
                     <th>Team</th>
                     <th>Erstell Datum</th>
                     <th>Sprint</th>
+                    <th>Bearbeiten</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>{{ ticket[0] }}</td>
-                    <td>{{ ticket[1] }}</td>
-                    <td>{{ ticket[2] }}</td>
-                    <td>{{ ticket[3] }}</td>
-                    <td>{{ ticket[4] }}</td>
-                    <td>{{ ticket[5] }}</td>
-                    <td>{{ ticket[6] }}</td>
-                    <td>{{ ticket[7] }}</td>
-                    <td>{{ ticket[8] }}</td>
+                  {% for ticket in ticket %}
+                    <tr>
+                        <td>{{ ticket[0] }}</td>
+                        <td>{{ ticket[1] }}</td>
+                        <td>{{ ticket[2] }}</td>
+                        <td>{{ ticket[3][:50] }}{% if ticket[3]|length > 50 %}...{% endif %}</td>
+                        <td>{{ ticket[4] }}</td>
+                        <td>{{ ticket[5] }}</td>
+                        <td>{{ ticket[6] }}</td>
+                        <td>{{ ticket[7] }}</td>
+                        <td>{{ ticket[8] }}</td>
+                    <td>
+                      <form action="{{ url_for ('ticket_zuweisen')}}", method="POST">
+                        <input type="hidden" name="ticket_id" value="{{ ticket[0] }}">
+                        <input id="button" type="submit" value="Bearbeiten">
+                      </form>
+                    </td>
                   </tr>
+                  {% endfor %}
                 </tbody>
               </table>
             </div>

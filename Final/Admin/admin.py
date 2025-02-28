@@ -43,7 +43,9 @@ def benutzer_verwaltung():
     cursor = connection.cursor()
 
     # Definiere, nach welcher Spalte gesucht wird
-    if search_column == 'name':
+    if search_column == 'id':
+        search_field = 'Benutzer_id'
+    elif search_column == 'name':
         search_field = 'Benutzername'
     elif search_column == 'zugeteiltes_team':
         search_field = 'Gruppe'

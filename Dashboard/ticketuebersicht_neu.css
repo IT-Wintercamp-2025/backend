@@ -1,0 +1,144 @@
+:root {
+  --background-color: #7e92fc; 
+  --background-color2: #b8abfa; 
+  --header-color: #6eb2ff; 
+  --footer-color: rgb(83, 67, 162);
+  --fillin-color: white; 
+  --border-color: #ccc; /* Hinzugefügt für die Tabellenrahmen */
+}
+
+body, html {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(var(--background-color), var(--background-color2));
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  background-color: var(--header-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.318), 0 6px 20px 0 rgba(0, 0, 0, 0.268);
+}
+
+footer {
+  background-color: var(--footer-color);
+  padding: 50px;
+}
+
+h1 {
+  padding: 0;
+  margin: 0;
+}
+
+.Logo {
+  height: 60px;
+  width: 90px;
+  float: left;
+  margin-right: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+#nTBtn {
+  border-radius: 8px;
+  border: solid var(--footer-color); 
+  cursor: pointer;
+  padding: 7px 16px;
+  float: right;
+  margin-right: 16px;
+  background-color:var(--header-color);
+}
+
+#nTBtn:hover {
+  transition: all 0.2s; 
+  background-color: var(--header-color);
+  border: solid var(--background-color);
+}
+
+.dropdown-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+select {
+  padding: 8px;
+  border: 1px solid var(--header-color);
+  border-radius: 4px;
+  background-color: var(--fillin-color);
+  color: #333;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+select:hover {
+  background-color: var(--header-color);
+  color: white;
+}
+
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th,
+td {
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+th {
+  background-color: var(--fillin-color); 
+  color: var(--background-color);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer {
+  background-color: var(--footer-color);
+  color: white;
+  padding: 10px;
+}
+
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info,
+.copyright,
+#Kontakt,
+#copyright,
+.adress,
+#adress {
+  margin: 10px;
+}
+
+#Logo2 {
+  height: 60px;
+  width: 90px;
+  float: left;
+  margin-right: 10px;
+}

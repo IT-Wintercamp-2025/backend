@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='ticket_einsicht.css')}}">
+    <title>eigenes Ticket einsehen und beareiten</title>
+</head>
+<body>
+    <div class="unten">
+        <h1>Ticket Details</h1>
+    </div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Betreff</th>
+                <th>Beschreibung</th>
+                <th>Status</th>
+                <th>Priorität</th>
+                <th>Fachabteilung (Team)</th>
+                <th>Erstellungsdatum</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in ticket_data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ transfer1 }}</td>
+                    <td>{{ transfer2 }}</td>
+                    <td>{{ transfer3 }}</td>
+                    <td>{{ row[3] }}</td>
+                </tr>
+        </tbody>
+    </table>
+    <div class="oben">
+        <h2>Bearbeiten</h2>
+        <form action="{{ url_for ('ticket_bearbeiten') }}" method="POST">
+            <label class="oben" for="betreff_e">Betreff:</label><br>
+            <input type="text" id="betreff_e" name="betreff_e" value="{{ neu }}"><br>
+            <label for="beschreibung_e">Beschreibung:</label><br>
+            <input type="text" id="beschreibung_e" name="beschreibung_e" value="{{ neu2 }}"><br><br>
+            <input type="hidden" name="ticket_id" value="{{row[0]}}">
+            <input type="submit" value="aktualisieren" class="knopf">
+      </form> 
+      {% endfor %} 
+    </div>
+
+
+</body>
+</html>

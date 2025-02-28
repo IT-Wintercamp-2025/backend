@@ -16,25 +16,62 @@ def db_connection():
     return connection
 
 
-@app.route("/benutzer_verwaltung")
+#@app.route("/benutzer_verwaltung")
+#def benutzer_verwaltung():
+#    connection = db_connection()
+#    cursor = connection.cursor()
+#    cursor.execute("SELECT * FROM user_data")
+#    myresult = cursor.fetchall()  # Gibt eine Liste von Tupeln zurück
+#
+#    updated_result = []
+#    for row in myresult:
+#        user_list = list(row)  # Konvertiere das Tupel in eine Liste, damit es veränderbar ist
+#        sql2 = "SELECT Gruppenname FROM gruppe WHERE Gruppen_id = %s"
+#        cursor.execute(sql2, (row[4],)) 
+#        eintrag2 = cursor.fetchone()
+#        if eintrag2:
+#            user_list[4] = eintrag2[0]
+#        updated_result.append(user_list)
+#
+#    return render_template("benutzer_verwaltung.html", myresult=updated_result)
+
+@app.route("/benutzer_verwaltung", methods=["GET", "POST"])
 def benutzer_verwaltung():
+    search_query = request.args.get('search_query', '')  # Hole die Suchanfrage
+    search_column = request.args.get('search_column', 'name')  # Hole die Spalte, nach der gesucht werden soll
     connection = db_connection()
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM user_data")
-    myresult = cursor.fetchall()  # Gibt eine Liste von Tupeln zurück
 
+    # Definiere, nach welcher Spalte gesucht wird
+    if search_column == 'id':
+        search_field = 'Benutzer_id'
+    elif search_column == 'name':
+        search_field = 'Benutzername'
+    elif search_column == 'zugeteiltes_team':
+        search_field = 'Gruppe'
+    elif search_column == 'rolle':
+        search_field = 'Rolle'
+    elif search_column == 'gesperrt':
+        search_field = 'Sperren'
+    else:
+        search_field = 'Benutzername'  # Default-Fall
+
+    # Hole alle Benutzerdaten
+    cursor.execute(f"SELECT * FROM user_data WHERE {search_field} LIKE %s", ('%' + search_query + '%',))
+    myresult = cursor.fetchall()
+
+    # Aktualisiere die Benutzerdaten mit Gruppenname
     updated_result = []
     for row in myresult:
-        user_list = list(row)  # Konvertiere das Tupel in eine Liste, damit es veränderbar ist
+        user_list = list(row)  # Konvertiere das Tupel in eine Liste
         sql2 = "SELECT Gruppenname FROM gruppe WHERE Gruppen_id = %s"
-        cursor.execute(sql2, (row[4],)) 
+        cursor.execute(sql2, (row[4],))
         eintrag2 = cursor.fetchone()
         if eintrag2:
             user_list[4] = eintrag2[0]
         updated_result.append(user_list)
 
     return render_template("benutzer_verwaltung.html", myresult=updated_result)
-
 
 @app.route("/benutzer_sperren", methods=["GET", "POST"])
 def benutzer_sperren():
@@ -58,6 +95,17 @@ def benutzer_entsperren():
     sql = "UPDATE user_data SET Sperren = 0 WHERE Benutzer_id = %s"
     val = ((user_id),)
     cursor.execute(sql, val)
+    connection.commit()
+    return benutzer_verwaltung()
+
+@app.route("/benutzer_loeschen", methods=['GET', "POST"])
+def benutzer_loeschen():
+    if request.method == "POST":
+        user_id = request.form['user_id']
+    connection = db_connection()
+    cursor = connection.cursor()
+    sql = "DELETE FROM user_data WHERE Benutzer_id = %s"
+    cursor.execute(sql, (user_id,))
     connection.commit()
     return benutzer_verwaltung()
 
