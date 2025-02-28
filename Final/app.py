@@ -1,7 +1,7 @@
 import mysql
 from flask import Flask
 
-from Final.refactor.routes.a_index import index_routes
+from refactor.routes.a_index import index_routes
 
 app = Flask(__name__)
 
@@ -58,5 +58,4 @@ def register_blueprint_routes(app):
 
 if __name__ == '__main__':
     create_app()
-    print("hi!")
     app.run(host='0.0.0.0', port=5000)
