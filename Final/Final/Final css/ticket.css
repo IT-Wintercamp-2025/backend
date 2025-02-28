@@ -1,8 +1,10 @@
-:root { --background-color: #f0ece2;
-    --header-color: #c7b198;
-    --footer-color:#596e79;
-    --fillin-color: #dfd3c3;
-  }
+:root {
+  --background-color: #7e92fc; 
+  --background-color2: #b8abfa; 
+  --header-color: #6eb2ff; 
+  --footer-color: rgb(83, 67, 162);
+  --fillin-color: white; 
+  --border-color: #ccc; 
   
 body { 
     height: 100vh;
