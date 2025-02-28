@@ -61,6 +61,17 @@ def benutzer_entsperren():
     connection.commit()
     return benutzer_verwaltung()
 
+@app.route("/benutzer_loeschen", methods=['GET', "POST"])
+def benutzer_loeschen():
+    if request.method == "POST":
+        user_id = request.form['user_id']
+    connection = db_connection()
+    cursor = connection.cursor()
+    sql = "DELETE FROM user_data WHERE Benutzer_id = %s"
+    cursor.execute(sql, (user_id,))
+    connection.commit()
+    return benutzer_verwaltung()
+
 @app.route("/benutzer_bearbeiten", methods=["GET", "POST"])
 def benutzer_bearbeiten():
     if request.method == "POST":
