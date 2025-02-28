@@ -5,6 +5,7 @@
   --footer-color: rgb(83, 67, 162);
   --fillin-color: white; 
   --border-color: #ccc;
+}
 
 body {
     height: 100vh;
@@ -25,7 +26,6 @@ header {
 
 th {
     background-color: var(--fillin-color);
-    border-radius: 8px 8px 0 0;
     padding: 8px 4px;
     border: solid var(--footer-color);
 }
@@ -98,12 +98,17 @@ h2 {
     margin-top: 1px;
 }
 
-table, th, tr, td {
-    border: solid 1px #c0bdb7;
+table, th {
+    border: solid 1px var(--footer-color);
     border-spacing: 0px;
+    border-radius: 8px 8px 0 0;
+    background-color: var(--header-color);
 }
 
 main {
     margin-bottom: 5px;
     background-color: transparent;
+}
+tr, td {
+    border: solid 1px var(--footer-color);
 }
