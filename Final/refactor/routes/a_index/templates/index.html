@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    <title>Ticketsystem</title>
+</head>
+<body>
+
+<header>
+    <img src="{{ url_for('static', filename='images/Logo_no_shado.png') }}" alt="Logo" id="Logo">
+    <h1 id="TS">Ticketsystem</h1>
+    <div>Platzhalter</div>
+</header>
+
+<main>
+    <div class="Info">
+        <div class="Vorstellung">
+            <h1>Ticketsystem des IT-Wintercamps</h1>
+            <hr>
+            <h3>Support-Bereich – Wir helfen Ihnen gerne!</h3>
+            <p><strong>Anfragen und Tickets verwalten:</strong> Bitte melden Sie sich an oder registrieren Sie sich.
+                Nach dem Login sehen Sie eine Übersicht Ihrer Tickets, können den Status prüfen und neue Tickets erstellen. Unser Team
+                unterstützt Sie schnell und zuverlässig.</p>
+        </div>
+        <div class="Funktionen">
+            <h1>So funktioniert es</h1>
+            <hr>
+            <div class="Funktion">
+                <p><strong>Ticket erstellen:</strong> Schildern Sie Ihr Anliegen und Problem detailliert im Ticket-Formular.</p>
+                <p><strong>Bearbeitung durch Team:</strong> Ihr Ticket wird sofort an den Support weitergeleitet und priorisiert bearbeitet.
+                </p>
+                <p><strong>Status verfolgen:</strong> Prüfen Sie jederzeit den Bearbeitungsfortschritt in Ihrer Übersicht.</p>
+                <p><strong>Direkte Kommunikation:</strong> Erhalten Sie Updates per Benachrichtigung und antworten Sie bei Rückfragen direkt
+                    im Ticket.</p>
+            </div>
+        </div>
+    </div>
+    <div class="Login">
+        <h1>Bereits registriert?</h1>
+        <hr>
+        <p>Loggen Sie sich ein, um auf Ihre Tickets zuzugreifen.
+            <button id="LoginBtn"><a href="./login/LogIn.html" target="_blank" id="loginLink">Login</a></button>
+        </p>
+        <p id="registrierenLink">Noch kein Konto? <a href="./SignUp/SignUp.html" target="_blank">Registrieren</a></p>
+    </div>
+</main>
+
+<footer class="footer"> <!--footer section (copyright etc.)-->
+    <div class="flexbox">
+        <div class="info" style="font-weight: 900;">
+            <div id="Kontakt">Kontakt:</div>
+            <div id="Kontakt"><a id="Kontakt-Link" href="mailto:schule@30-os.de" style="font-weight: 100;">info@communardo.de</a></div>
+            <div id="Kontakt"><a id="Kontakt-Link" href="tel:0351 8043286" style="font-weight: 100;"> +49 35185033-0</a></div>
+        </div>
+        <img id="Logo2" src="./Images/Logo_shadow.png" alt="Ticket logo">
+        <div class="adress">
+            <div id="adress" style="font-weight: 900;">Communardo GmbH</div>
+            <div id="adress" style="font-weight: 100;">Kleiststraße 10a</div>
+            <div id="adress" style="font-weight: 100;">01129 Dresden</div>
+        </div>
+    </div>
+    <hr style="border: 1px solid gray;">
+    <div class="copyright">
+        <div id="copyright">Copyright © https://itcamp-dd.de/</div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

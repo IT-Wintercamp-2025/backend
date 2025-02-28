@@ -144,10 +144,12 @@ def logout():
     session.pop('Benutzer_id', None)
     return render_template('Logout.html')
 
+# REFACTORED - a_index
 @app.route('/index')
 def index():
     return render_template('index.html')
 
+# REFACTORED - a_index
 @app.route('/')
 def home():
     return render_template('index.html')

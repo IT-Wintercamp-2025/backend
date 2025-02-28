@@ -1,0 +1,117 @@
+:root {
+    --background-color: #f0ece2;
+    --header-color: #c7b198;
+    --footer-color: #596e79;
+    --fillin-color: #dfd3c3;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--background-color);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-color: var(--header-color);
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between; /*Dinger auseinander*/
+    align-items: center; /*Objekte Mittig*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.318), 0 6px 20px 0 rgba(0, 0, 0, 0.268);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.Info {
+    display: flex;
+}
+
+.Vorstellung, .Funktionen, .Login {
+    padding: 5px;
+    font-size: 16px;
+    border: solid var(--footer-color) 4px;
+    margin: 20px;
+    background-color: var(--fillin-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.318), 0 6px 20px 0 rgba(0, 0, 0, 0.268);
+}
+
+#Logo {
+    height: 60px;
+    width: 90px;
+    float: left;
+    margin-right: 10px;
+}
+
+h1, h3 {
+    padding: 0;
+    margin: 0;
+}
+
+hr {
+    margin: 10px 0;
+    padding: 2px 0;
+}
+
+#LoginBtn {
+    border-radius: 8px;
+    border: solid var(--footer-color);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    padding-left: 16px;
+    padding-right: 16px;
+    float: right;
+    margin-right: 16px;
+}
+
+#LoginBtn:hover {
+    transition: all 0.2s;
+    background-color: var(--header-color);
+    border: solid var(--background-color);
+}
+
+a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+#loginLink {
+    color: rgb(0, 0, 0);
+}
+
+
+#registrierenLink {
+    color: rgb(0, 0, 0);
+}
+
+/*footer*/
+.footer {
+    background-color: var(--footer-color);
+    color: var(--background-color);
+    padding: 10px
+}
+
+.info, .copyright, #Kontakt, #copyright, .adress, #adress {
+    margin: 10px;
+}
+
+.flexbox {
+    display: flex;
+    justify-content: space-between;
+}
+
+#Logo2 {
+    height: 60px;
+    width: 90px;
+    float: left;
+    margin-right: 10px;
+}

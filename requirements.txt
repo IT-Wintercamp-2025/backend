@@ -1,3 +1,4 @@
 Flask==2.0.3
 mysql-connector-python==8.0.26
 bcrypt==3.2.0
+Werkzeug==2.2.2 # actual version would not work
