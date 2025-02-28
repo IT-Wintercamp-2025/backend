@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="{{url_for('static', filename='Gast_Uebersicht.css')}}">
+      <title>Ticketsystem</title>
+    </head>
+    <body>
+
+        <header>
+            <h1>Ticketsystem</h1>
+            <button id="nTBtn"><a href="../Ticket_erstellen/TicketErstellen" target="_blank" id="nTLink">Neues Ticket</a></button>
+          </header>
+    
+        <main class="container">
+            <h2>Ticketübersicht</h2>
+            <div class="table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Betreff</th>
+                    <th>Beschreibung</th>
+                    <th>Status</th>
+                    <th>Team</th>
+                    <th>Bearbeiten</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for t in ticket %}
+                  <tr>
+                      <td>{{ t[0] }}</td>  <!-- Ticket_id -->
+                      <td>{{ t[1] }}</td>  <!-- Betreff -->
+                      <td>{{ t[2] }}</td>  <!-- Beschreibung -->
+                      <td>{{ t[3] }}</td>  <!-- Status -->
+                      <td>{{ t[4] }}</td>  <!-- Team -->
+                      <td>
+                        <form action="{{ url_for ('ticket_ausgabe') }}", method="POST">
+                          <input type="hidden" name="ticket_id" value="{{ t[0] }}">
+                          <input type="submit" value="Bearbeiten">
+                        </form>
+                      </td>
+
+                  </tr>
+                  {% endfor %}
+              </tbody>
+              </table>
+            </div>
+          </main>
+    
+    <footer class="footer"> <!--footer section (copyright etc.)-->
+        <div class="flexbox">
+        <div class="info" style="font-weight: 900;">
+            <div id="Kontakt">Kontakt:</div>
+                <div id="Kontakt"><a id="Kontakt-Link" href="mailto:schule@30-os.de" style="font-weight: 100;">info@communardo.de</a></div>
+                <div id="Kontakt"><a id="Kontakt-Link" href="tel:0351 8043286" style="font-weight: 100;"> +49 35185033-0</a></div>
+        </div>
+        <img id="Logo2" src="../Images/Logo_shadow.png" alt="Ticket logo">
+        <div class="adress">
+            <div id="adress" style="font-weight: 900;">Communardo GmbH</div>
+            <div id="adress" style="font-weight: 100;">Kleiststraße 10a</div>
+            <div id="adress" style="font-weight: 100;">01129 Dresden</div>
+        </div>
+    </div>
+        <hr style="border: 1px solid gray;">
+        <div class="copyright">
+            <div id="copyright">Copyright © https://itcamp-dd.de/</div>
+        </div>
+      </footer>
+
+
+    </body>
+</html>
