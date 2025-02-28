@@ -1,0 +1,103 @@
+:root {
+    --background-color: #f0ece2;
+    --header-color: #c7b198;
+    --footer-color: #596e79;
+    --fillin-color: #dfd3c3;
+}
+
+body {
+    height: 100vh;
+    background-color: var(--background-color);
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-color: var(--header-color);
+    padding: 20px 50px;
+    margin-bottom: 16px;
+    /*Dinger auseinander*/
+    align-items: center;
+    /*Objekte Mittig*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.318), 0 6px 20px 0 rgba(0, 0, 0, 0.268);
+}
+
+th {
+    background-color: var(--fillin-color);
+    border-radius: 8px;
+    padding: 8px 4px;
+    border: solid var(--footer-color);
+}
+
+#button {
+    border-radius: 8px;
+    border: solid var(--footer-color);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    cursor: pointer;
+    padding-left: 16px;
+    padding-right: 16px;
+
+}
+
+#button:hover {
+    transition: all 0.2s;
+    background-color: var(--header-color);
+    border: solid var(--background-color);
+}
+
+.footer {
+    margin-top: 4.2cm;
+    background-color: var(--footer-color);
+    color: var(--background-color);
+    padding: 50px
+}
+
+
+#Name {
+    margin: 2px;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+    cursor: pointer;
+    border: solid var(--footer-color);
+}
+
+#Gruppe {
+    margin: 2px;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+    cursor: pointer;
+    border: solid var(--footer-color);
+}
+
+#Rolle {
+    margin: 2px;
+    color: black;
+    background-color: white;
+    border-radius: 8px;
+    padding: 4px;
+    cursor: pointer;
+    border: solid var(--footer-color);
+}
+
+form {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+h2 {
+    margin-left: 24px;
+}
+
+#button{
+    margin-top: 1px;
+}
+
+table, th, tr, td {
+    border: solid 1px #dadada;
+    border-spacing: 0px;
+}
