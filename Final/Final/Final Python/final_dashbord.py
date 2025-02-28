@@ -128,19 +128,19 @@ class TicketManager:
         return self.dictionary_by_status_prio(1)
 
     def suche_im_dictionary(self, suchbegriff):
-        for ticked_id, betreff in self.dictionary_status_2_erstelldatum_reverse().items():
+        for ticket_id, betreff in self.dictionary_status_2_erstelldatum_reverse().items():
             if suchbegriff.lower() in betreff.lower():  # Fallunabhängige Suche
-                self.dictionary_status_2_erstelldatum_reverse_searched[ticked_id] = betreff
+                self.dictionary_status_2_erstelldatum_reverse_searched[ticket_id] = betreff
         
         return self.dictionary_status_2_erstelldatum_reverse_searched
 
-@app.route("/Ticket_Uebersicht", methods = ["GET", "POST"])
+@app.route("/Ticket_Uebersicht", methods=["GET", "POST"])
 def dashboard():
-    ticket = []
+    tickets = []
 
-    user_id = session('Benutzer_id')
+    user_id = session.get('Benutzer_id')
         
-    sql =  """
+    sql = """
     SELECT Gruppe
     FROM user_data
     WHERE Benutzer_id = %s 
@@ -161,7 +161,7 @@ def dashboard():
     # Gesamt-Dictionary mit Ticket-IDs und Betreffs
     dictionary_gesamt = ticket_manager.erstellung_dictionary_gesamt()
 
-    # Status-Dictionaries erstellen mit methoden aus klasse ticket_manager
+    # Status-Dictionaries erstellen mit Methoden aus Klasse TicketManager
     dictionary_status_0_erstelldatum = ticket_manager.dictionary_status_0_erstelldatum()
     dictionary_status_0_ablaufdatum = ticket_manager.dictionary_status_0_ablaufdatum()
     dictionary_status_0_prio = ticket_manager.dictionary_status_0_prio()
@@ -170,7 +170,6 @@ def dashboard():
     dictionary_status_1_prio = ticket_manager.dictionary_status_1_prio()
     dictionary_status_2_erstelldatum_reverse = ticket_manager.dictionary_status_2_erstelldatum_reverse()
     dictionary_status_2_erstelldatum_reverse_searched = ticket_manager.suche_im_dictionary("")
-
 
     ausgewaltes_dict = {}
     status_filter0 = request.form.get('status0')
@@ -201,7 +200,7 @@ def dashboard():
     FROM ticket_data
     INNER JOIN user_data
     ON ticket_data.Benutzer_id = user_data.Benutzer_id
-    WHERE ticket_data.Ticket_id = %s;  -- Platzhalter für TicketID
+    WHERE ticket_data.Ticket_id = %s;
     """
 
     connection = db_connection()
@@ -209,13 +208,14 @@ def dashboard():
 
     for ticket_id in ausgewaltes_dict.keys():
         cursor.execute(query, (ticket_id,))
-        ticket = cursor.fetchone()
-
+        ticket_data = cursor.fetchone()
+        if ticket_data:
+            tickets.append(ticket_data)
 
     cursor.close()
     connection.close()
 
-    return render_template("Ticket_Uebersicht.html", ticket=ticket)
+    return render_template("Ticket_Uebersicht.html", tickets=tickets)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
