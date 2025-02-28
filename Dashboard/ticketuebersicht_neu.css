@@ -4,6 +4,7 @@
   --header-color: #6eb2ff; 
   --footer-color: rgb(83, 67, 162);
   --fillin-color: white; 
+  --border-color: #ccc; /* Hinzugefügt für die Tabellenrahmen */
 }
 
 body, html {
@@ -50,36 +51,6 @@ a {
   color: rgb(255, 255, 255);
 }
 
-#loginLink {
-  color: rgb(0, 0, 0);
-}
-
-#registrierenLink {
-  color: rgb(0, 0, 0);
-}
-
-.kanban-block {
-  padding: 0.6px;
-  width: 100%;
-  min-width: 14px;
-  min-height: 4.5px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.318), 0 6px 20px 0 rgba(0, 0, 0, 0.268);
-}
-
-#unbearbeitet,
-#inbearbeitung,
-#bearbeitet {
-  background-color: var(--fillin-color);
-  border: 0.1rem solid var(--header-color);
-}
-
-/*Dropdown*/
-body {
-  height: 100vh;
-  margin: 0;
-}
-
 #nTBtn {
   border-radius: 8px;
   border: solid var(--footer-color); 
@@ -87,6 +58,7 @@ body {
   padding: 7px 16px;
   float: right;
   margin-right: 16px;
+  background-color:var(--header-color);
 }
 
 #nTBtn:hover {
@@ -95,106 +67,26 @@ body {
   border: solid var(--background-color);
 }
 
-a {
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-}
-
-#nTLink {
-  color: rgb(0, 0, 0);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: rgba(128, 128, 128, 0.379);
-  border: solid black 2px;
-  min-width: 10px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-.dropdown-content a {
-  float: none;
-  color: black;
-  padding: 0px 10px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  padding-right: 0px;
-}
-
-.dropdown-content #a:hover {
-  background-color: rgba(128, 128, 128, 0.512);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-.ticketbutton {
-  padding: 10px;
-  width: 15%;
-  border-radius: 1rem;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.318), 0 6px 20px 0 rgba(0, 0, 0, 0.268);
-  cursor: pointer;
-  background-color: var(--fillin-color);
-  border: 0.1rem solid var(--header-color);
+.dropdown-container {
   display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.ticketbutton:hover {
-  background-color: var(--background-color);
-}
-
-.centering {
-  display: flex;
-  justify-content: center;
-}
-
-.footer {
-  background-color: var(--footer-color);
-  color: var(--background-color);
-  padding: 10px;
-}
-
-.info,
-.copyright,
-#Kontakt,
-#copyright,
-.adress,
-#adress {
-  margin: 10px;
-}
-
-.flexbox {
-  display: flex;
-  justify-content: space-between;
-}
-
-#Logo2 {
-  height: 60px;
-  width: 90px;
-  float: left;
-  margin-right: 10px;
-}
-
-/*main*/
-.container {
-  flex: 1;
-  padding: 20px;
-  width: 100%;
-  overflow-y: auto;
-}
-
-h2 {
-  text-align: center;
   margin-bottom: 20px;
 }
 
-/* Tabelle soll den gesamten Platz nutzen und Spalten gleich verteilen */
+select {
+  padding: 8px;
+  border: 1px solid var(--header-color);
+  border-radius: 4px;
+  background-color: var(--fillin-color);
+  color: #333;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+select:hover {
+  background-color: var(--header-color);
+  color: white;
+}
+
 .table-container {
   width: 100%;
 }
@@ -219,36 +111,34 @@ th {
   color: var(--background-color);
 }
 
-select {
-  padding: 8px;
-  border: 1px solid var(--header-color);
-  border-radius: 4px;
-  background-color: var(--fillin-color);
-  color: #333;
-  margin: 0 5px;
-  cursor: pointer;
-}
-
-select:hover {
-  background-color: var(--header-color);
-  color: white;
-}
-
-.dropdown-container {
-  display: flex;
+h2 {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-select {
-  padding: 8px;
-  border: 1px solid var(--header-color);
-  border-radius: 4px;
-  background-color: var(--fillin-color);
-  color: #333;
-  cursor: pointer;
+.footer {
+  background-color: var(--footer-color);
+  color: white;
+  padding: 10px;
 }
 
-select:hover {
-  background-color: var(--header-color);
-  color: white;
+.flexbox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info,
+.copyright,
+#Kontakt,
+#copyright,
+.adress,
+#adress {
+  margin: 10px;
+}
+
+#Logo2 {
+  height: 60px;
+  width: 90px;
+  float: left;
+  margin-right: 10px;
 }
