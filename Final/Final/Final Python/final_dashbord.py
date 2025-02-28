@@ -86,7 +86,7 @@ class TicketManager:
         SELECT Ticket_id, Betreff 
         FROM ticket_data 
         WHERE Team = %s AND Status = %s
-        ORDER BY sprint ASC
+        ORDER BY Sprint ASC
         """
         connection = db_connection()
         cursor = connection.cursor()
@@ -109,7 +109,7 @@ class TicketManager:
         SELECT Ticket_id, Betreff 
         FROM ticket_data 
         WHERE Team = %s AND Status = %s
-        ORDER BY prio ASC
+        ORDER BY Prio ASC
         """
         connection = db_connection()
         cursor = connection.cursor()
