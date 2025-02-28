@@ -1,0 +1,130 @@
+:root {
+    --background-color: #f0ece2;
+    --header-color: #c7b198;
+    --footer-color: #596e79;
+    --fillin-color: #dfd3c3;
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: #333;
+  }
+  
+  /* Header */
+  header {
+    background-color: var(--header-color);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .header-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  #Logo {
+    height: 80px;
+    width: auto;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    color: white;
+  }
+  
+  /* Main */
+  main {
+    flex: 1;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .datenschutz-container {
+    max-width: 800px;
+    width: 100%;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .datenschutz-container h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--header-color);
+    text-align: center;
+  }
+  
+  .datenschutz-container p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  
+  .datenschutz-container ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    list-style-type: disc;
+  }
+  
+  .datenschutz-container li {
+    margin-bottom: 10px;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: var(--footer-color);
+    padding: 30px 20px;
+    color: var(--background-color);
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .footer-container .contact-info,
+  .footer-container .company-info {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .footer-container img#Logo2 {
+    height: 60px;
+    margin: 10px;
+  }
+  
+  footer hr {
+    border: 1px solid var(--background-color);
+    margin: 20px 0;
+  }
+  
+  footer p {
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  footer p a {
+    color: var(--background-color);
+    text-decoration: none;
+  }
+  
+  /* Globale Linkgestaltung */
+  a {
+    color: var(--header-color);
+    text-decoration: none;
+  }

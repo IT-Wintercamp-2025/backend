@@ -29,29 +29,29 @@ def register():
 
         if len(passwort) < 4:
             message = "Das Passwort muss mindestens 4 Zeichen lang sein!"
-            return render_template('SignUp.html', message=message)
+            return render_template('signup.html', message=message)
 
         if len(username) < 3:
             message = "Der Benutzername muss mindestens 3 Zeichen lang sein!"
-            return render_template('SignUp.html', message=message)
+            return render_template('signup.html', message=message)
         
         if len(username) > 20:
             message = "Der Benutzername darf maximal 20 Zeichen lang sein!"
-            return render_template('SignUp.html', message=message)
+            return render_template('signup.html', message=message)
 
         if not re.match("^[A-Za-z0-9]+$", username):
             message = "Der Benutzername darf nur Buchstaben und Zahlen enthalten!"
-            return render_template('SignUp.html', message=message)
+            return render_template('signup.html', message=message)
 
         if passwort != passwort_bestaetigen:
             message = "Die Passwörter stimmen nicht überein!"
-            return render_template('SignUp.html', message=message)
+            return render_template('signup.html', message=message)
 
         try:
             connection = db_connection()
             if connection is None:
                 message = "Datenbankverbindung fehlgeschlagen!"
-                return render_template('SignUp.html', message=message)
+                return render_template('signup.html', message=message)
 
             cursor = connection.cursor()
 
@@ -59,7 +59,7 @@ def register():
             count = cursor.fetchone()[0]
             if count > 0:
                 message = "Der Benutzername ist bereits vergeben!"
-                return render_template('SignUp.html', message=message)
+                return render_template('signup.html', message=message)
 
             cursor.execute("SELECT COUNT(*) FROM user_data")
             user_count = cursor.fetchone()[0]
@@ -78,7 +78,7 @@ def register():
             user_id = cursor.fetchone()[0]
             session['Benutzer_id'] = user_id
             message = "Registrierung erfolgreich!"
-            return render_template('SignUp.html', message=message)
+            return render_template('signup.html', message=message)
         except Exception as e:
             message = f"Fehler: {e}"
             print(e)
@@ -88,7 +88,7 @@ def register():
             if 'connection' in locals():
                 connection.close()
 
-    return render_template('SignUp.html', message=message)
+    return render_template('signup.html', message=message)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -112,7 +112,7 @@ def login():
                         message = 'Dieser Nutzer wurde gesperrt!'
                         cursor.close()
                         connection.close()
-                        return render_template('Login.html', message=message)
+                        return render_template('login.html', message=message)
                     else:
                         # Admin is locked, but still allowed to proceed
                         session['locked_message'] = 'Du wurdest als Admin gesperrt, womöglich wurde das System gehackt!'
@@ -136,7 +136,7 @@ def login():
         else:
             message = 'Datenbankverbindung fehlgeschlagen!'
     
-    return render_template('Login.html', message=message)
+    return render_template('login.html', message=message)
 
 @app.route('/logout')
 def logout():

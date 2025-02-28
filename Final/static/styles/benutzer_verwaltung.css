@@ -1,0 +1,78 @@
+/* benutzer_verwalten.css */
+:root {
+    --background-color: #f0ece2;
+    --header-color: #c7b198;
+    --border-color: #596e79;
+    --table-header: #dfd3c3;
+  }
+  
+  body {
+    margin: 0;
+    padding: 20px;
+    background: var(--background-color);
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: var(--header-color);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    text-align: left;
+  }
+  
+  th {
+    background: var(--table-header);
+  }
+  
+  form[method="get"] {
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  input[type="text"] {
+    padding: 8px;
+    width: 250px;
+    border: 2px solid var(--border-color);
+  }
+  
+  input[type="submit"], 
+  .button {
+    padding: 8px 15px;
+    background: var(--header-color);
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background: #b3a58e;
+  }
+  
+  .footer {
+    margin-top: 30px;
+    padding: 15px;
+    background: var(--header-color);
+    text-align: center;
+  }
+  
+  @media (max-width: 600px) {
+    table {
+      font-size: 14px;
+    }
+    
+    th, td {
+      padding: 8px;
+    }
+  }

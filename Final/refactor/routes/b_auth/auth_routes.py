@@ -1,25 +1,24 @@
-from flask import Flask, session, render_template, redirect, request, url_for
-import mysql.connector
 import bcrypt
+from flask import Blueprint, request, render_template, session, redirect, url_for
+import mysql.connector
 import re
 
-app = Flask(__name__)
-app.secret_key = '0815'
+auth_blueprint = Blueprint("auth", __name__, template_folder="templates")
 
 def db_connection():
     try:
         connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="1234",
-            database="Backend2"
+            host="ticketsystem-database-1", # vor Ende zur Finalen Datenbank ändern
+            user="root",                    # vor Ende ändern
+            password="1234",                # vor Ende ändern
+            database="backend3"              # vor Ende zur Finalen Datenbank ändern
         )
         return connection
-    except mysql.connector.Error as e:
-        print("Fehler bei der Datenbankverbindung:", e)
+    except mysql.connector.Error as error:
+        print("Fehler bei der Datenbankverbindung:", error)
         return None
 
-@app.route('/SignUp', methods=['GET', 'POST'])
+@auth_blueprint.route("/auth/signup")
 def register():
     message = ""
     if request.method == "POST":
@@ -34,7 +33,7 @@ def register():
         if len(username) < 3:
             message = "Der Benutzername muss mindestens 3 Zeichen lang sein!"
             return render_template('signup.html', message=message)
-        
+
         if len(username) > 20:
             message = "Der Benutzername darf maximal 20 Zeichen lang sein!"
             return render_template('signup.html', message=message)
@@ -65,13 +64,13 @@ def register():
             user_count = cursor.fetchone()[0]
 
             rolle = 2 if user_count == 0 else 0
-            gruppe = None
+            gruppe = 4
 
             hashed_passwort = bcrypt.hashpw(passwort.encode("utf-8"), bcrypt.gensalt())
 
             cursor.execute(
                 "INSERT INTO user_data (Benutzername, Passwort, Email, Gruppe, Rolle) VALUES (%s, %s, %s, %s, %s)",
-                (username, hashed_passwort, username + "@email.com", gruppe, rolle)
+                (username, hashed_passwort, username+"@email.com", gruppe, rolle)
             )
             connection.commit()
             cursor.execute("SELECT Benutzer_id FROM user_data WHERE Benutzername = %s", (username,))
@@ -90,7 +89,8 @@ def register():
 
     return render_template('signup.html', message=message)
 
-@app.route('/login', methods=['GET', 'POST'])
+
+@auth_blueprint.route('/auth/login')
 def login():
     message = ''
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
@@ -100,7 +100,7 @@ def login():
         connection = db_connection()
         if connection:
             cursor = connection.cursor(dictionary=True)
-            
+
             # Fetch the user data first
             cursor.execute('SELECT * FROM user_data WHERE Benutzername = %s', (username,))
             user = cursor.fetchone()
@@ -135,22 +135,14 @@ def login():
             connection.close()
         else:
             message = 'Datenbankverbindung fehlgeschlagen!'
-    
+
     return render_template('login.html', message=message)
 
-@app.route('/logout')
+@auth_blueprint.route('/logout')
 def logout():
     session.pop('loggedin', None)
     session.pop('Benutzer_id', None)
     return render_template('Logout.html')
 
-@app.route('/index')
-def index():
-    return render_template('index.html')
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+def register_routes(app):
+    app.register_blueprint(auth_blueprint)

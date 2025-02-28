@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrieren</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/SignUp.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="login-container">
+            <h2 class="title">SignUp</h2>
+            
+            <form action="/Ticket_Uebersicht.html" method="POST" class="form">
+                <div class="form-group">
+                    <label for="username">Benutzername:</label>
+                    <input type="text" id="username" name="username" placeholder="Benutzername" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Passwort:</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Passwort" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Passwort bestätigen:</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="confirm-password" name="confirm-password" placeholder="Passwort" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Registrieren</button>
+            </form>
+        </div>
+    </main>
+    <script href="{{ url_for('static', filename='scripts/SignUp.js') }}"></script>
+</body>
+</html>

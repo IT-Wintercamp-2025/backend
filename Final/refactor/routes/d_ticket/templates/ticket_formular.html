@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket bearbeiten</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/ticket.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Ticket Details</h1>
+    </header>
+
+    <main class="container">
+        <div class="ticket-card">
+            <table class="ticket-table">
+                <thead>
+                    <tr>
+                        <th>Ticket ID</th>
+                        <th>Betreff</th>
+                        <th>Beschreibung</th>
+                        <th>Status</th>
+                        <th>Priorität</th>
+                        <th>Team</th>
+                        <th>Erstellt am</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in ticket_data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ transfer1 }}</td>
+                            <td>{{ transfer2 }}</td>
+                            <td>{{ transfer3 }}</td>
+                            <td>{{ row[3] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="edit-section">
+            <h2>Ticket bearbeiten</h2>
+            <form action="{{ url_for ('ticket_bearbeiten') }}" method="POST">
+                <div class="form-group">
+                    <label for="betreff_e">Betreff:</label>
+                    <input type="text" id="betreff" name="betreff_e" value="{{ neu }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="beschreibung_e">Beschreibung:</label>
+                    <textarea id="Beschreibung" name="beschreibung_e">{{ neu2 }}</textarea>
+                </div>
+                
+                <button type="submit" class="btn-primary">Aktualisieren</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="contact">
+                <div>Kontakt: info@communardo.de</div>
+                <div>Tel: +49 35185033-0</div>
+            </div>
+            <div class="copyright">
+                Copyright © itcamp-dd.de
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

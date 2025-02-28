@@ -2,6 +2,10 @@ import mysql
 from flask import Flask
 
 from refactor.routes.a_index import index_routes
+from refactor.routes.b_auth import auth_routes
+from refactor.routes.c_user import user_routes
+from refactor.routes.d_ticket import ticket_routes
+from refactor.routes.e_admin import admin_routes
 
 app = Flask(__name__)
 
@@ -54,6 +58,10 @@ def register_blueprint_routes(app):
     """
     # Ihr müsst nichts weiter tun, als die untenliegende Zeile Code sinnvoll an die weiteren gruppierbaren HTML Seiten anzupassen und unter diesem Aufruf einzufügen - wieder und wieder. :)
     index_routes.register_routes(app)
+    auth_routes.register_routes(app)
+    user_routes.register_routes(app)
+    ticket_routes.register_routes(app)
+    admin_routes.register_routes(app)
 
 
 if __name__ == '__main__':

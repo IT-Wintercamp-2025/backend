@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neues Ticket</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/ticket_erstellen.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Neues Ticket verfassen</h1>
+    </header>
+
+    <main class="container">
+        <div class="ticket-card">
+            <form action="{{ url_for ('ticket_hinzufuegen') }}" method="POST">
+                <div class="form-group">
+                    <label for="Gruppe">Gruppe:</label>
+                    <select name="Gruppe" id="Gruppe">
+                        <option value="Frontend">Frontend</option>
+                        <option value="Backend">Backend</option>
+                        <option value="Infrastruktur">Infrastruktur</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="betreff">Betreff:</label>
+                    <input type="text" id="betreff" name="betreff" placeholder="Kurze Zusammenfassung">
+                </div>
+
+                <div class="form-group">
+                    <label for="Beschreibung">Beschreibung:</label>
+                    <textarea id="Beschreibung" name="Beschreibung" rows="4" placeholder="Beschreibe dein Problem detailliert"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Ticket erstellen</button>
+            </form>
+        </div>
+
+        <div class="info-card">
+            <h3>So funktioniert's</h3>
+            <div class="info-step">
+                <h4>Schritt 1: Gruppe wählen</h4>
+                <p>Wähle im Dropdown-Menü das zuständige Team für dein Anliegen aus.</p>
+            </div>
+            <div class="info-step">
+                <h4>Schritt 2: Betreff eingeben</h4>
+                <p>Fasse dein Problem in wenigen Worten zusammen.</p>
+            </div>
+            <div class="info-step">
+                <h4>Schritt 3: Beschreibung</h4>
+                <p>Beschreibe dein Problem so detailliert wie möglich.</p>
+            </div>
+            <div class="info-step">
+                <h4>Schritt 4: Absenden</h4>
+                <p>Klicke auf "Ticket erstellen", um dein Ticket zu übermitteln.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="contact">
+                <div>Kontakt: info@communardo.de</div>
+                <div>Tel: +49 35185033-0</div>
+            </div>
+            <div class="copyright">
+                Copyright © itcamp-dd.de
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
