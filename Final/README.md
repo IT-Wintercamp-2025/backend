@@ -10,6 +10,12 @@ Diese Methoden sorgen dafür, dass die bereitgestellten Dateien in Final/static 
 Diese Methode ist die wichtigste. Sie registriert die eigentlichen Routen. 
 ```python
 def register_blueprint_routes(app):
+    """
+    <gruppen_name(bspw. auth, user, ticket, admin)>_routes.register_routes(app)
+    auth würde beispielsweise register, login und logout implementieren,
+    user das anlegen, löschen, bearbeiten
+    ticket "  
+    """
     index_routes.register_routes(app)
 ```
 
