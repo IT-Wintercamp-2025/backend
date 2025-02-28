@@ -1,10 +1,11 @@
-        :root {
-            --background-color: hsl(43, 32%, 91%);
-            --border-color: #596e79;
-            --login-color: #c7b198;
-        }
-
-        /* Container für die gesamte Seite */
+:root {
+  --background-color: #7e92fc; 
+  --background-color2: #b8abfa; 
+  --header-color: #6eb2ff; 
+  --footer-color: rgb(83, 67, 162);
+  --fillin-color: white; 
+  --border-color: #ccc;
+}
         html, body {
             height: 100%;
             margin: 0;
